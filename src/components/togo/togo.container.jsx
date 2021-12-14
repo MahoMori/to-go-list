@@ -26,9 +26,13 @@ const Togo = () => {
     setTogo({ ...togo, [name]: value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
+    // e.preventDefault();
     dispatch(createTogo(togo));
+  };
+
+  const handleEdit = (payload) => {
+    dispatch(editTogo(payload));
   };
 
   const handleDoneUndone = (id) => {
@@ -41,17 +45,7 @@ const Togo = () => {
 
   return (
     <div>
-      <h2>TO GO: {togo.nameOfCreator}</h2>
-      <TogoModalAdd />
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="title" required onChange={handleChange} />
-        <br />
-        <textarea type="text" name="memo" onChange={handleChange} />
-        <br />
-        <input type="text" name="map" onChange={handleChange} />
-        <br />
-        <button>create</button>
-      </form>
+      <TogoModalAdd handleSubmit={handleSubmit} handleChange={handleChange} />
 
       <ul>
         {togos.length !== 0 &&
@@ -59,6 +53,7 @@ const Togo = () => {
             <>
               <TogoComponent
                 togo={togo}
+                handleEdit={handleEdit}
                 handleDoneUndone={handleDoneUndone}
                 handleDelete={handleDelete}
               />

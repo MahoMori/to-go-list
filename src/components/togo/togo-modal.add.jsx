@@ -30,7 +30,7 @@ const textfieldStyle = {
   marginBottom: "30px",
 };
 
-export default function TogoModalAdd() {
+export default function TogoModalAdd({ handleSubmit, handleChange }) {
   const classes = useStyles();
 
   const [open, setOpen] = React.useState(false);
@@ -39,7 +39,7 @@ export default function TogoModalAdd() {
 
   return (
     <div>
-      <Button onClick={handleOpen} color="secondary">
+      <Button onClick={handleOpen} color="secondary" variant="outlined">
         ADD NEW
       </Button>
       <Modal
@@ -56,6 +56,9 @@ export default function TogoModalAdd() {
             id="standard-basic"
             label="Title"
             variant="standard"
+            name="title"
+            required
+            onChange={handleChange}
           />
           <TextField
             sx={textfieldStyle}
@@ -66,6 +69,8 @@ export default function TogoModalAdd() {
             multiline
             rows={6}
             variant="standard"
+            name="memo"
+            onChange={handleChange}
           />
           <TextField
             sx={textfieldStyle}
@@ -74,13 +79,22 @@ export default function TogoModalAdd() {
             id="standard-basic"
             label="Map URL"
             variant="standard"
+            name="map"
+            onChange={handleChange}
           />
 
           <div className={classes.buttonDiv}>
-            <Button variant="outlined" color="success">
+            <Button
+              variant="outlined"
+              color="success"
+              onClick={() => {
+                handleSubmit();
+                handleClose();
+              }}
+            >
               Add
             </Button>
-            <Button variant="outlined" color="error">
+            <Button variant="outlined" color="error" onClick={handleClose}>
               Cancel
             </Button>
           </div>
