@@ -7,6 +7,7 @@ import {
   deleteTogo,
 } from "../../redux/togo/togoSlice";
 
+import TogoModalAdd from "./togo-modal.add";
 import TogoComponent from "./togo.component";
 
 const Togo = () => {
@@ -30,13 +31,18 @@ const Togo = () => {
     dispatch(createTogo(togo));
   };
 
-  const handleDelete = (e) => {
-    dispatch(deleteTogo(e.target));
+  const handleDoneUndone = (id) => {
+    dispatch(doneUndoneTogo(id));
+  };
+
+  const handleDelete = (id) => {
+    dispatch(deleteTogo(id));
   };
 
   return (
     <div>
       <h2>TO GO: {togo.nameOfCreator}</h2>
+      <TogoModalAdd />
       <form onSubmit={handleSubmit}>
         <input type="text" name="title" required onChange={handleChange} />
         <br />
@@ -51,7 +57,11 @@ const Togo = () => {
         {togos.length !== 0 &&
           togos.map((togo) => (
             <>
-              <TogoComponent togo={togo} />
+              <TogoComponent
+                togo={togo}
+                handleDoneUndone={handleDoneUndone}
+                handleDelete={handleDelete}
+              />
             </>
           ))}
       </ul>

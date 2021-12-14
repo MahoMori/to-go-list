@@ -1,10 +1,10 @@
 import "./App.css";
-import Togo from "./components/togo/togo.container";
+import BasicTabs from "./components/TabPanel";
 
 function App() {
   return (
     <div className="App">
-      <Togo />
+      <BasicTabs />
     </div>
   );
 }
