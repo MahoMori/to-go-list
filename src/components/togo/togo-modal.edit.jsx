@@ -126,7 +126,6 @@ export default function TogoModalEdit({ data, open, handleClose, handleEdit }) {
               color="success"
               onClick={() => {
                 handleEdit(editData);
-                console.log("edit data", editData);
                 handleClose();
               }}
             >
