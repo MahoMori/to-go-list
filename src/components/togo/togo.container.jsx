@@ -108,7 +108,12 @@ const Togo = ({ label }) => {
 
   return (
     <div>
-      <Button onClick={handleOpen} color="secondary" variant="outlined">
+      <Button
+        size="large"
+        onClick={handleOpen}
+        color="secondary"
+        variant="outlined"
+      >
         ADD NEW
       </Button>
       <TogoModalAdd
