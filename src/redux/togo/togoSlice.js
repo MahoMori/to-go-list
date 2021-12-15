@@ -9,26 +9,31 @@ export const togoSlice = createSlice({
 
   reducers: {
     createTogo: (state, action) => {
-      const { nameOfCreator, title, memo, map } = action.payload;
+      const { nameOfCreator, title, memo, mapUrl, wsUrl, refUrl } =
+        action.payload;
       state.id++;
       const newTogo = {
         id: state.id,
         nameOfCreator,
         title,
         memo,
-        map,
+        mapUrl,
+        wsUrl,
+        refUrl,
         isDone: false,
       };
       state.togos = [newTogo, ...state.togos];
     },
 
     editTogo: (state, action) => {
-      const { id, title, memo, map } = action.payload;
+      const { id, title, memo, mapUrl, wsUrl, refUrl } = action.payload;
       const togo = state.togos.find((t) => t.id === id);
       if (togo) {
         togo.title = title;
         togo.memo = memo;
-        togo.map = map;
+        togo.mapUrl = mapUrl;
+        togo.wsUrl = wsUrl;
+        togo.refUrl = refUrl;
       }
     },
 
