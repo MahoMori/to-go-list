@@ -1,12 +1,8 @@
 import React from "react";
 
 import Checkbox from "@mui/material/Checkbox";
-import { IconButton } from "@material-ui/core";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
 
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -18,7 +14,6 @@ const useStyles = makeStyles(() => ({
   li: {
     display: "grid",
     gridTemplateColumns: "80% 20%",
-    // borderBottom: "solid #000 2px",
     margin: "20px 0",
   },
   iconDiv: {
@@ -45,12 +40,6 @@ const TogoComponent = ({
   const classes = useStyles();
   return (
     <>
-      {/* <Card sx={{ height: 50 }}>
-        <CardContent>
-          <p>hello</p>
-        </CardContent>
-      </Card> */}
-
       <li key={togo.id} className={classes.li}>
         <Accordion onClick={() => console.log(togo)}>
           <AccordionSummary aria-controls="panel1a-content" id="panel1a-header">
