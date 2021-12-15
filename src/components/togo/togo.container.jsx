@@ -12,7 +12,7 @@ import Button from "@mui/material/Button";
 import TogoModalAdd from "./togo-modal.add";
 import TogoComponent from "./togo.component";
 
-const Togo = () => {
+const Togo = ({ label }) => {
   const togos = useSelector((state) => state.togo.togos);
   const dispatch = useDispatch();
 
@@ -20,7 +20,9 @@ const Togo = () => {
     nameOfCreator: "Maho",
     title: "",
     memo: "",
-    map: "",
+    mapUrl: "",
+    wsUrl: "",
+    refUrl: "",
   });
 
   const handleChange = (e) => {

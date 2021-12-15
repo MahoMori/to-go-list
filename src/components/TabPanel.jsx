@@ -47,6 +47,9 @@ export default function BasicTabs() {
     setValue(newValue);
   };
 
+  const labelTogo = "TO GO";
+  const labelTodo = "TO DO";
+
   return (
     <Box sx={{ width: "100%" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -56,15 +59,15 @@ export default function BasicTabs() {
           textColor="secondary"
           indicatorColor="secondary"
         >
-          <Tab label="TO GO" />
-          <Tab label="TO DO" />
+          <Tab label={labelTogo} />
+          <Tab label={labelTodo} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <Togo />
+        <Togo label={labelTogo} />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
+        <Togo label={labelTodo} />
       </TabPanel>
     </Box>
   );

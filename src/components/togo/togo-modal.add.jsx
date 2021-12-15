@@ -7,7 +7,7 @@ import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
   buttonDiv: {
-    margin: "40px auto",
+    margin: "10px auto",
     display: "flex",
     justifyContent: "space-around",
   },
@@ -19,7 +19,7 @@ const boxStyle = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 450,
-  height: "70%",
+  height: "75%",
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -27,7 +27,7 @@ const boxStyle = {
 };
 
 const textfieldStyle = {
-  marginBottom: "30px",
+  marginBottom: "20px",
 };
 
 export default function TogoModalAdd({
@@ -82,7 +82,27 @@ export default function TogoModalAdd({
             id="standard-basic"
             label="Map URL"
             variant="standard"
-            name="map"
+            name="mapUrl"
+            onChange={handleChange}
+          />
+          <TextField
+            sx={textfieldStyle}
+            color="secondary"
+            fullWidth
+            id="standard-basic"
+            label="Website URL"
+            variant="standard"
+            name="wsUrl"
+            onChange={handleChange}
+          />
+          <TextField
+            sx={textfieldStyle}
+            color="secondary"
+            fullWidth
+            id="standard-basic"
+            label="Other URL"
+            variant="standard"
+            name="refUrl"
             onChange={handleChange}
           />
 
