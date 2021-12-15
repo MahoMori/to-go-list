@@ -1,12 +1,23 @@
 import React, { useState } from "react";
 
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+
 import Checkbox from "@mui/material/Checkbox";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
+import Breadcrumbs from "@mui/material/Breadcrumbs";
+import Link from "@mui/material/Link";
+
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import WebIcon from "@mui/icons-material/Web";
+import LanguageIcon from "@mui/icons-material/Language";
+
+// import LooksOneIcon from "@mui/icons-material/LooksOne";
+// import LooksTwoIcon from "@mui/icons-material/LooksTwo";
+// import LooksThreeIcon from "@mui/icons-material/LooksThree";
 
 import { makeStyles } from "@material-ui/core";
 
@@ -28,7 +39,7 @@ const useStyles = makeStyles(() => ({
     // marginRight: "8px",
     margin: "0 20px",
     color: "#329932",
-    fontSize: 35,
+    fontSize: 30,
     cursor: "pointer",
     transition: "color 0.2s",
     "&:hover": {
@@ -37,12 +48,15 @@ const useStyles = makeStyles(() => ({
   },
   iconDelete: {
     color: "red",
-    fontSize: 35,
+    fontSize: 30,
     cursor: "pointer",
     transition: "color 0.2s",
     "&:hover": {
       color: "#ff9999",
     },
+  },
+  urlIconDiv: {
+    margin: "0 0 15px 15px",
   },
 }));
 
@@ -78,26 +92,50 @@ const TogoComponent = ({
           <AccordionDetails>
             <p>{memo}</p>
           </AccordionDetails>
-          {refUrl1 && (
-            <AccordionDetails>
-              <p>{refUrl1}</p>
-            </AccordionDetails>
-          )}
-          {refUrl2 && (
-            <AccordionDetails>
-              <p>{refUrl2}</p>
-            </AccordionDetails>
-          )}
-          {refUrl3 && (
-            <AccordionDetails>
-              <p>{refUrl3}</p>
-            </AccordionDetails>
-          )}
+
+          <div role="presentation" className={classes.urlIconDiv}>
+            <Breadcrumbs aria-label="breadcrumb">
+              {refUrl1 && (
+                <Link
+                  underline="hover"
+                  sx={{ display: "flex", alignItems: "center" }}
+                  color="inherit"
+                  href={refUrl1}
+                  target="_blank"
+                >
+                  <LocationOnIcon sx={{ mr: 0.5 }} fontSize="inherit" />
+                  Map
+                </Link>
+              )}
+              {refUrl2 && (
+                <Link
+                  underline="hover"
+                  sx={{ display: "flex", alignItems: "center" }}
+                  color="inherit"
+                  href={refUrl2}
+                >
+                  <WebIcon sx={{ mr: 0.5 }} fontSize="inherit" />
+                  Website
+                </Link>
+              )}
+              {refUrl3 && (
+                <Link
+                  underline="hover"
+                  sx={{ display: "flex", alignItems: "center" }}
+                  color="inherit"
+                  href={refUrl3}
+                >
+                  <LanguageIcon sx={{ mr: 0.5 }} fontSize="inherit" />
+                  Other
+                </Link>
+              )}
+            </Breadcrumbs>
+          </div>
         </Accordion>
         <div className={classes.iconDiv}>
           <Checkbox
             color="secondary"
-            sx={{ "& .MuiSvgIcon-root": { fontSize: 35 } }}
+            sx={{ "& .MuiSvgIcon-root": { fontSize: 30 } }}
             onClick={() => handleDoneUndone(id)}
           />
 
@@ -112,7 +150,13 @@ const TogoComponent = ({
 
           <DeleteForeverIcon
             className={classes.iconDelete}
-            onClick={() => handleDelete(id)}
+            onClick={() => {
+              if (
+                window.confirm("Are you sure you want to delete this?") === true
+              ) {
+                handleDelete(id);
+              }
+            }}
           />
         </div>
 

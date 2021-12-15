@@ -78,7 +78,7 @@ export default function TogoModalAdd({
             id="standard-basic"
             label={label === "TO GO" ? "Map URL" : "Reference URL 1"}
             variant="standard"
-            name="mapUrl"
+            name="refUrl1"
             onChange={handleChange}
           />
           <TextField
@@ -88,7 +88,7 @@ export default function TogoModalAdd({
             id="standard-basic"
             label={label === "TO GO" ? "Website URL" : "Reference URL 2"}
             variant="standard"
-            name="wsUrl"
+            name="refUrl2"
             onChange={handleChange}
           />
           <TextField
@@ -98,7 +98,7 @@ export default function TogoModalAdd({
             id="standard-basic"
             label={label === "TO GO" ? "Other URL" : "Reference URL 3"}
             variant="standard"
-            name="refUrl"
+            name="refUrl3"
             onChange={handleChange}
           />
 
