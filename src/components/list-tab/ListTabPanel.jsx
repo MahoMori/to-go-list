@@ -5,7 +5,7 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
-import Togo from "./togo/togo.container";
+import Togo from "./togo.container";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -33,14 +33,7 @@ TabPanel.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
-  };
-}
-
-export default function BasicTabs() {
+export default function ListTabPanel() {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {

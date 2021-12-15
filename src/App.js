@@ -1,10 +1,10 @@
 import "./App.css";
-import BasicTabs from "./components/TabPanel";
+import ListTabPanel from "./components/list-tab/ListTabPanel";
 
 function App() {
   return (
     <div className="App">
-      <BasicTabs />
+      <ListTabPanel />
     </div>
   );
 }
