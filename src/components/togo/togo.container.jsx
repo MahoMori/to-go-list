@@ -6,6 +6,12 @@ import {
   doneUndoneTogo,
   deleteTogo,
 } from "../../redux/togo/togoSlice";
+import {
+  createTodo,
+  editTodo,
+  doneUndoneTodo,
+  deleteTodo,
+} from "../../redux/todo/todoSlice";
 
 import Button from "@mui/material/Button";
 
@@ -14,37 +20,70 @@ import TogoComponent from "./togo.component";
 
 const Togo = ({ label }) => {
   const togos = useSelector((state) => state.togo.togos);
+  const todos = useSelector((state) => state.todo.todos);
   const dispatch = useDispatch();
 
-  const [togo, setTogo] = useState({
+  // const [togo, setTogo] = useState({
+  //   nameOfCreator: "Maho",
+  //   title: "",
+  //   memo: "",
+  //   refUrl1: "",
+  //   refUrl2: "",
+  //   refUrl3: "",
+  // });
+
+  const [data, setData] = useState({
     nameOfCreator: "Maho",
     title: "",
     memo: "",
-    mapUrl: "",
-    wsUrl: "",
-    refUrl: "",
+    refUrl1: "",
+    refUrl2: "",
+    refUrl3: "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setTogo({ ...togo, [name]: value });
+    setData({ ...data, [name]: value });
   };
 
   const handleSubmit = () => {
     // e.preventDefault();
-    dispatch(createTogo(togo));
+    if (label === "TO GO") {
+      dispatch(createTogo(data));
+    }
+    if (label === "TO DO") {
+      dispatch(createTodo(data));
+    }
   };
 
   const handleEdit = (payload) => {
-    dispatch(editTogo(payload));
+    // dispatch(editTogo(payload));
+    if (label === "TO GO") {
+      dispatch(editTogo(payload));
+    }
+    if (label === "TO DO") {
+      dispatch(editTodo(payload));
+    }
   };
 
   const handleDoneUndone = (id) => {
-    dispatch(doneUndoneTogo(id));
+    // dispatch(doneUndoneTogo(id));
+    if (label === "TO GO") {
+      dispatch(doneUndoneTogo(id));
+    }
+    if (label === "TO DO") {
+      dispatch(doneUndoneTodo(id));
+    }
   };
 
   const handleDelete = (id) => {
-    dispatch(deleteTogo(id));
+    // dispatch(deleteTogo(id));
+    if (label === "TO GO") {
+      dispatch(deleteTogo(id));
+    }
+    if (label === "TO DO") {
+      dispatch(deleteTodo(id));
+    }
   };
 
   const [open, setOpen] = React.useState(false);
@@ -64,11 +103,29 @@ const Togo = ({ label }) => {
       />
 
       <ul>
-        {togos.length !== 0 &&
+        {label === "TO GO" &&
+          togos.length !== 0 &&
           togos.map((togo) => (
             <>
               <TogoComponent
-                togo={togo}
+                data={togo}
+                handleDoneUndone={handleDoneUndone}
+                handleDelete={handleDelete}
+                open={open}
+                handleOpen={handleOpen}
+                handleClose={handleClose}
+                handleChange={handleChange}
+                handleEdit={handleEdit}
+              />
+            </>
+          ))}
+
+        {label === "TO DO" &&
+          todos.length !== 0 &&
+          todos.map((todo) => (
+            <>
+              <TogoComponent
+                data={todo}
                 handleDoneUndone={handleDoneUndone}
                 handleDelete={handleDelete}
                 open={open}

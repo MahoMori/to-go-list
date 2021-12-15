@@ -34,7 +34,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const TogoComponent = ({
-  togo,
+  data,
   handleDoneUndone,
   handleDelete,
   handleOpen,
@@ -47,44 +47,41 @@ const TogoComponent = ({
   const classes = useStyles();
   return (
     <>
-      <li key={togo.id} className={classes.li}>
-        <Accordion onClick={() => console.log(togo)}>
+      <li key={data.id} className={classes.li}>
+        <Accordion>
           <AccordionSummary aria-controls="panel1a-content" id="panel1a-header">
             <h2
               style={
-                togo.isDone
+                data.isDone
                   ? { textDecoration: "line-through 2px" }
                   : { textDecoration: "none" }
               }
             >
-              {togo.title}
+              {data.title}
             </h2>
           </AccordionSummary>
           <AccordionDetails>
-            <p>{togo.memo}</p>
+            <p>{data.memo}</p>
           </AccordionDetails>
-          {/* <AccordionDetails>
-            <iframe
-              title="refmap"
-              src={togo.map}
-              style={{
-                width: "400",
-                height: "300",
-                frameborder: "0",
-                border: 0,
-              }}
-            ></iframe>
-          </AccordionDetails> */}
+          <AccordionDetails>
+            <p>{data.refUrl1}</p>
+          </AccordionDetails>
+          <AccordionDetails>
+            <p>{data.refUrl2}</p>
+          </AccordionDetails>
+          <AccordionDetails>
+            <p>{data.refUrl3}</p>
+          </AccordionDetails>
         </Accordion>
         <div className={classes.iconDiv}>
           <Checkbox
             color="secondary"
-            onClick={() => handleDoneUndone(togo.id)}
+            onClick={() => handleDoneUndone(data.id)}
           />
 
           <ModeEditIcon className={classes.iconEdit} onClick={handleOpen} />
           <TogoModalAdd
-            togo={togo}
+            togo={data}
             {...otherProps}
             // open={open}
             // handleClose={handleClose}
@@ -94,11 +91,11 @@ const TogoComponent = ({
 
           <DeleteForeverIcon
             className={classes.iconDelete}
-            onClick={() => handleDelete(togo.id)}
+            onClick={() => handleDelete(data.id)}
           />
         </div>
 
-        {/* <li key={togo.id} className={classes.li}>
+        {/* <li key={data.id} className={classes.li}>
         <p
           style={
             togo.isDone
