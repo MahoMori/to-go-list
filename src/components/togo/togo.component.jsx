@@ -15,9 +15,9 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import WebIcon from "@mui/icons-material/Web";
 import LanguageIcon from "@mui/icons-material/Language";
 
-// import LooksOneIcon from "@mui/icons-material/LooksOne";
-// import LooksTwoIcon from "@mui/icons-material/LooksTwo";
-// import LooksThreeIcon from "@mui/icons-material/LooksThree";
+import LooksOneIcon from "@mui/icons-material/LooksOne";
+import LooksTwoIcon from "@mui/icons-material/LooksTwo";
+import Looks3Icon from "@mui/icons-material/Looks3";
 
 import { makeStyles } from "@material-ui/core";
 
@@ -103,8 +103,17 @@ const TogoComponent = ({
                   href={refUrl1}
                   target="_blank"
                 >
-                  <LocationOnIcon sx={{ mr: 0.5 }} fontSize="inherit" />
-                  Map
+                  {label === "TO GO" ? (
+                    <>
+                      <LocationOnIcon sx={{ mr: 0.5 }} fontSize="inherit" />
+                      Map
+                    </>
+                  ) : (
+                    <>
+                      <LooksOneIcon sx={{ mr: 0.8 }} fontSize="inherit" />
+                      Reference 1
+                    </>
+                  )}
                 </Link>
               )}
               {refUrl2 && (
@@ -113,9 +122,19 @@ const TogoComponent = ({
                   sx={{ display: "flex", alignItems: "center" }}
                   color="inherit"
                   href={refUrl2}
+                  target="_blank"
                 >
-                  <WebIcon sx={{ mr: 0.5 }} fontSize="inherit" />
-                  Website
+                  {label === "TO GO" ? (
+                    <>
+                      <WebIcon sx={{ mr: 0.5 }} fontSize="inherit" />
+                      Website
+                    </>
+                  ) : (
+                    <>
+                      <LooksTwoIcon sx={{ mr: 0.8 }} fontSize="inherit" />
+                      Reference 2
+                    </>
+                  )}
                 </Link>
               )}
               {refUrl3 && (
@@ -124,9 +143,19 @@ const TogoComponent = ({
                   sx={{ display: "flex", alignItems: "center" }}
                   color="inherit"
                   href={refUrl3}
+                  target="_blank"
                 >
-                  <LanguageIcon sx={{ mr: 0.5 }} fontSize="inherit" />
-                  Other
+                  {label === "TO GO" ? (
+                    <>
+                      <LanguageIcon sx={{ mr: 0.5 }} fontSize="inherit" />
+                      Other
+                    </>
+                  ) : (
+                    <>
+                      <Looks3Icon sx={{ mr: 0.8 }} fontSize="inherit" />
+                      Reference 3
+                    </>
+                  )}
                 </Link>
               )}
             </Breadcrumbs>
@@ -159,31 +188,6 @@ const TogoComponent = ({
             }}
           />
         </div>
-
-        {/* <li key={data.id} className={classes.li}>
-        <p
-          style={
-            togo.isDone
-              ? { textDecoration: "line-through 2px" }
-              : { textDecoration: "none" }
-          }
-        >
-          {togo.title}
-        </p>
-
-        <div className={classes.iconDiv}>
-          <Checkbox
-            color="secondary"
-            onClick={() => handleDoneUndone(togo.id)}
-          />
-
-          <ModeEditIcon className={classes.iconEdit} />
-
-          <DeleteForeverIcon
-            className={classes.iconDelete}
-            onClick={() => handleDelete(togo.id)}
-          />
-        </div> */}
       </li>
     </>
   );
