@@ -29,6 +29,10 @@ const useStyles = makeStyles(() => ({
     gridTemplateColumns: "80% 20%",
     margin: "20px 0",
   },
+  accordionDetails: {
+    textAlign: "left",
+    fontSize: "18px",
+  },
   iconDiv: {
     // width: 100,
     display: "flex",
@@ -68,7 +72,7 @@ const TogoComponent = ({
   handleEdit,
 }) => {
   const classes = useStyles();
-  const { id, title, memo, refUrl1, refUrl2, refUrl3 } = data;
+  const { id, title, memo, refUrl1, refUrl2, refUrl3, isDone } = data;
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -81,7 +85,7 @@ const TogoComponent = ({
           <AccordionSummary aria-controls="panel1a-content" id="panel1a-header">
             <h2
               style={
-                data.isDone
+                isDone
                   ? { textDecoration: "line-through 2px" }
                   : { textDecoration: "none" }
               }
@@ -89,7 +93,7 @@ const TogoComponent = ({
               {title}
             </h2>
           </AccordionSummary>
-          <AccordionDetails>
+          <AccordionDetails className={classes.accordionDetails}>
             <p>{memo}</p>
           </AccordionDetails>
 
