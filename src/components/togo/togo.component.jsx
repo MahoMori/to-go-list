@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import Checkbox from "@mui/material/Checkbox";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
@@ -9,6 +9,8 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 
 import { makeStyles } from "@material-ui/core";
+
+import { PropsContext } from "./togo.container";
 
 const useStyles = makeStyles(() => ({
   li: {
@@ -34,9 +36,11 @@ const useStyles = makeStyles(() => ({
 const TogoComponent = ({
   togo,
   handleEdit,
-  handleDoneUndone,
+  // handleDoneUndone,
   handleDelete,
 }) => {
+  const { handleDoneUndone } = useContext(PropsContext);
+
   const classes = useStyles();
   return (
     <>
