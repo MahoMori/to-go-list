@@ -19,17 +19,30 @@ const useStyles = makeStyles(() => ({
     margin: "20px 0",
   },
   iconDiv: {
-    width: 100,
+    // width: 100,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
   },
   iconEdit: {
-    marginRight: "8px",
+    // marginRight: "8px",
+    margin: "0 20px",
     color: "#329932",
+    fontSize: 35,
+    cursor: "pointer",
+    transition: "color 0.2s",
+    "&:hover": {
+      color: "#84c184",
+    },
   },
   iconDelete: {
     color: "red",
+    fontSize: 35,
+    cursor: "pointer",
+    transition: "color 0.2s",
+    "&:hover": {
+      color: "#ff9999",
+    },
   },
 }));
 
@@ -41,6 +54,7 @@ const TogoComponent = ({
   handleEdit,
 }) => {
   const classes = useStyles();
+  const { id, title, memo, refUrl1, refUrl2, refUrl3 } = data;
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -48,7 +62,7 @@ const TogoComponent = ({
 
   return (
     <>
-      <li key={data.id} className={classes.li}>
+      <li key={id} className={classes.li}>
         <Accordion>
           <AccordionSummary aria-controls="panel1a-content" id="panel1a-header">
             <h2
@@ -58,26 +72,33 @@ const TogoComponent = ({
                   : { textDecoration: "none" }
               }
             >
-              {data.title}
+              {title}
             </h2>
           </AccordionSummary>
           <AccordionDetails>
-            <p>{data.memo}</p>
+            <p>{memo}</p>
           </AccordionDetails>
-          <AccordionDetails>
-            <p>{data.refUrl1}</p>
-          </AccordionDetails>
-          <AccordionDetails>
-            <p>{data.refUrl2}</p>
-          </AccordionDetails>
-          <AccordionDetails>
-            <p>{data.refUrl3}</p>
-          </AccordionDetails>
+          {refUrl1 && (
+            <AccordionDetails>
+              <p>{refUrl1}</p>
+            </AccordionDetails>
+          )}
+          {refUrl2 && (
+            <AccordionDetails>
+              <p>{refUrl2}</p>
+            </AccordionDetails>
+          )}
+          {refUrl3 && (
+            <AccordionDetails>
+              <p>{refUrl3}</p>
+            </AccordionDetails>
+          )}
         </Accordion>
         <div className={classes.iconDiv}>
           <Checkbox
             color="secondary"
-            onClick={() => handleDoneUndone(data.id)}
+            sx={{ "& .MuiSvgIcon-root": { fontSize: 35 } }}
+            onClick={() => handleDoneUndone(id)}
           />
 
           <ModeEditIcon className={classes.iconEdit} onClick={handleOpen} />
@@ -91,7 +112,7 @@ const TogoComponent = ({
 
           <DeleteForeverIcon
             className={classes.iconDelete}
-            onClick={() => handleDelete(data.id)}
+            onClick={() => handleDelete(id)}
           />
         </div>
 
