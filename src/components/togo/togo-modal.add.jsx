@@ -30,18 +30,21 @@ const textfieldStyle = {
   marginBottom: "30px",
 };
 
-export default function TogoModalAdd({ handleSubmit, handleChange }) {
+export default function TogoModalAdd({
+  open,
+  handleClose,
+  handleSubmit,
+  handleChange,
+  handleEdit,
+}) {
   const classes = useStyles();
 
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  // const [open, setOpen] = React.useState(false);
+  // const handleOpen = () => setOpen(true);
+  // const handleClose = () => setOpen(false);
 
   return (
     <div>
-      <Button onClick={handleOpen} color="secondary" variant="outlined">
-        ADD NEW
-      </Button>
       <Modal
         open={open}
         onClose={handleClose}

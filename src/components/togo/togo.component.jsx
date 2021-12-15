@@ -10,6 +10,8 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 
 import { makeStyles } from "@material-ui/core";
 
+import TogoModalAdd from "./togo-modal.add";
+
 const useStyles = makeStyles(() => ({
   li: {
     display: "grid",
@@ -33,9 +35,14 @@ const useStyles = makeStyles(() => ({
 
 const TogoComponent = ({
   togo,
-  handleEdit,
   handleDoneUndone,
   handleDelete,
+  handleOpen,
+  ...otherProps
+  // open,
+  // handleClose,
+  // handleChange,
+  // handleEdit,
 }) => {
   const classes = useStyles();
   return (
@@ -75,7 +82,15 @@ const TogoComponent = ({
             onClick={() => handleDoneUndone(togo.id)}
           />
 
-          <ModeEditIcon className={classes.iconEdit} />
+          <ModeEditIcon className={classes.iconEdit} onClick={handleOpen} />
+          <TogoModalAdd
+            togo={togo}
+            {...otherProps}
+            // open={open}
+            // handleClose={handleClose}
+            // handleChange={handleChange}
+            // handleEdit={handleEdit}
+          />
 
           <DeleteForeverIcon
             className={classes.iconDelete}

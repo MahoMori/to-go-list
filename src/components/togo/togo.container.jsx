@@ -7,6 +7,8 @@ import {
   deleteTogo,
 } from "../../redux/togo/togoSlice";
 
+import Button from "@mui/material/Button";
+
 import TogoModalAdd from "./togo-modal.add";
 import TogoComponent from "./togo.component";
 
@@ -43,9 +45,21 @@ const Togo = () => {
     dispatch(deleteTogo(id));
   };
 
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   return (
     <div>
-      <TogoModalAdd handleSubmit={handleSubmit} handleChange={handleChange} />
+      <Button onClick={handleOpen} color="secondary" variant="outlined">
+        ADD NEW
+      </Button>
+      <TogoModalAdd
+        open={open}
+        handleClose={handleClose}
+        handleSubmit={handleSubmit}
+        handleChange={handleChange}
+      />
 
       <ul>
         {togos.length !== 0 &&
@@ -53,9 +67,13 @@ const Togo = () => {
             <>
               <TogoComponent
                 togo={togo}
-                handleEdit={handleEdit}
                 handleDoneUndone={handleDoneUndone}
                 handleDelete={handleDelete}
+                open={open}
+                handleOpen={handleOpen}
+                handleClose={handleClose}
+                handleChange={handleChange}
+                handleEdit={handleEdit}
               />
             </>
           ))}
