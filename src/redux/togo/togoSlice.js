@@ -3,13 +3,13 @@ import { createSlice } from "@reduxjs/toolkit";
 export const togoSlice = createSlice({
   name: "togo",
   initialState: {
-    id: 1,
+    id: 0,
     togos: [],
   },
 
   reducers: {
     createTogo: (state, action) => {
-      const { nameOfCreator, title, memo, mapUrl, wsUrl, refUrl } =
+      const { nameOfCreator, title, memo, refUrl1, refUrl2, refUrl3 } =
         action.payload;
       state.id++;
       const newTogo = {
@@ -17,23 +17,23 @@ export const togoSlice = createSlice({
         nameOfCreator,
         title,
         memo,
-        mapUrl,
-        wsUrl,
-        refUrl,
+        refUrl1,
+        refUrl2,
+        refUrl3,
         isDone: false,
       };
       state.togos = [newTogo, ...state.togos];
     },
 
     editTogo: (state, action) => {
-      const { id, title, memo, mapUrl, wsUrl, refUrl } = action.payload;
+      const { id, title, memo, refUrl1, refUrl2, refUrl3 } = action.payload;
       const togo = state.togos.find((t) => t.id === id);
       if (togo) {
         togo.title = title;
         togo.memo = memo;
-        togo.mapUrl = mapUrl;
-        togo.wsUrl = wsUrl;
-        togo.refUrl = refUrl;
+        togo.refUrl1 = refUrl1;
+        togo.refUrl2 = refUrl2;
+        togo.refUrl3 = refUrl3;
       }
     },
 

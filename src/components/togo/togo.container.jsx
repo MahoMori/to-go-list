@@ -50,9 +50,25 @@ const Togo = ({ label }) => {
     // e.preventDefault();
     if (label === "TO GO") {
       dispatch(createTogo(data));
+      setData({
+        nameOfCreator: "Maho",
+        title: "",
+        memo: "",
+        refUrl1: "",
+        refUrl2: "",
+        refUrl3: "",
+      });
     }
     if (label === "TO DO") {
       dispatch(createTodo(data));
+      setData({
+        nameOfCreator: "Maho",
+        title: "",
+        memo: "",
+        refUrl1: "",
+        refUrl2: "",
+        refUrl3: "",
+      });
     }
   };
 
@@ -96,6 +112,7 @@ const Togo = ({ label }) => {
         ADD NEW
       </Button>
       <TogoModalAdd
+        label={label}
         open={open}
         handleClose={handleClose}
         handleSubmit={handleSubmit}
@@ -108,13 +125,11 @@ const Togo = ({ label }) => {
           togos.map((togo) => (
             <>
               <TogoComponent
+                label={label}
                 data={togo}
                 handleDoneUndone={handleDoneUndone}
                 handleDelete={handleDelete}
-                open={open}
-                handleOpen={handleOpen}
-                handleClose={handleClose}
-                handleChange={handleChange}
+                setData={setData}
                 handleEdit={handleEdit}
               />
             </>

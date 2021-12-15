@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import Checkbox from "@mui/material/Checkbox";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
@@ -10,7 +10,7 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 
 import { makeStyles } from "@material-ui/core";
 
-import TogoModalAdd from "./togo-modal.add";
+import TogoModalEdit from "./togo-modal.edit";
 
 const useStyles = makeStyles(() => ({
   li: {
@@ -34,17 +34,18 @@ const useStyles = makeStyles(() => ({
 }));
 
 const TogoComponent = ({
+  label,
   data,
   handleDoneUndone,
   handleDelete,
-  handleOpen,
-  ...otherProps
-  // open,
-  // handleClose,
-  // handleChange,
-  // handleEdit,
+  handleEdit,
 }) => {
   const classes = useStyles();
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   return (
     <>
       <li key={data.id} className={classes.li}>
@@ -80,13 +81,12 @@ const TogoComponent = ({
           />
 
           <ModeEditIcon className={classes.iconEdit} onClick={handleOpen} />
-          <TogoModalAdd
-            togo={data}
-            {...otherProps}
-            // open={open}
-            // handleClose={handleClose}
-            // handleChange={handleChange}
-            // handleEdit={handleEdit}
+          <TogoModalEdit
+            label={label}
+            data={data}
+            open={open}
+            handleClose={handleClose}
+            handleEdit={handleEdit}
           />
 
           <DeleteForeverIcon

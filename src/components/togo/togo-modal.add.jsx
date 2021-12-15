@@ -31,17 +31,13 @@ const textfieldStyle = {
 };
 
 export default function TogoModalAdd({
+  label,
   open,
   handleClose,
   handleSubmit,
   handleChange,
-  handleEdit,
 }) {
   const classes = useStyles();
-
-  // const [open, setOpen] = React.useState(false);
-  // const handleOpen = () => setOpen(true);
-  // const handleClose = () => setOpen(false);
 
   return (
     <div>
@@ -80,7 +76,7 @@ export default function TogoModalAdd({
             color="secondary"
             fullWidth
             id="standard-basic"
-            label="Map URL"
+            label={label === "TO GO" ? "Map URL" : "Reference URL 1"}
             variant="standard"
             name="mapUrl"
             onChange={handleChange}
@@ -90,7 +86,7 @@ export default function TogoModalAdd({
             color="secondary"
             fullWidth
             id="standard-basic"
-            label="Website URL"
+            label={label === "TO GO" ? "Website URL" : "Reference URL 2"}
             variant="standard"
             name="wsUrl"
             onChange={handleChange}
@@ -100,7 +96,7 @@ export default function TogoModalAdd({
             color="secondary"
             fullWidth
             id="standard-basic"
-            label="Other URL"
+            label={label === "TO GO" ? "Other URL" : "Reference URL 3"}
             variant="standard"
             name="refUrl"
             onChange={handleChange}
