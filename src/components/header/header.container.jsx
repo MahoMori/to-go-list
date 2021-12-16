@@ -26,7 +26,7 @@ const HeaderContainer = () => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{ backgroundColor: "#262626" }}>
+      <AppBar position="static" sx={{ backgroundColor: "#929292" }}>
         <Toolbar>
           <Grid container spacing={2}>
             <Grid item xs={8}>

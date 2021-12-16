@@ -1,6 +1,7 @@
 import "./App.css";
 import HeaderContainer from "./components/header/header.container";
-import ListTabPanel from "./components/list-tab/ListTabPanel";
+import NameTabPanel from "./components/name-tab/NameTabPanel";
+// import ListTabPanel from "./components/list-tab/ListTabPanel";
 
 // import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 // import { CssBaseline } from "@material-ui/core";
@@ -17,7 +18,7 @@ function App() {
       {/* <ThemeProvider theme={darkTheme}>
         <CssBaseline /> */}
       <HeaderContainer />
-      <ListTabPanel />
+      <NameTabPanel />
       {/* </ThemeProvider> */}
     </div>
   );
