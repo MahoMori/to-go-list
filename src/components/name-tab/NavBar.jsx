@@ -40,7 +40,7 @@ export default function TemporaryDrawer({ children }) {
       {["left"].map((anchor) => (
         <React.Fragment key={anchor}>
           <Button onClick={toggleDrawer(anchor, true)}>
-            <PeopleIcon sx={{ mr: 0.2 }} />
+            <PeopleIcon sx={{ mr: 0.5 }} />
           </Button>
           <Drawer
             anchor={anchor}

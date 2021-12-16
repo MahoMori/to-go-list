@@ -50,9 +50,9 @@ export default function NameTabPanel() {
         height: 224,
       }}
     >
-      <Grid container sx={{ width: "100%" }}>
+      <Grid container>
         {matches ? (
-          <Grid item sm={12}>
+          <Grid item sm={12} sx={{ width: "100%" }}>
             <NavBar>
               <Tabs
                 orientation="vertical"
@@ -86,14 +86,14 @@ export default function NameTabPanel() {
                 height: "calc(100vh - 64px)",
               }}
             >
-              <p>matches</p>
               <Tab label="Maho" />
               <Tab label="Tori" />
             </Tabs>
           </Grid>
         )}
 
-        <Grid item sm={12} md={10} sx={{ width: "100%" }}>
+        <Grid item md={10} sx={{ width: "85%" }}>
+          {/* <Grid item sx={{ width: "100%" }}> */}
           <TabPanel value={value} index={0}>
             <ListTabPanel />
           </TabPanel>
