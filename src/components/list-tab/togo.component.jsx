@@ -21,28 +21,40 @@ import Looks3Icon from "@mui/icons-material/Looks3";
 
 import { makeStyles } from "@material-ui/core";
 
-import Typography from "@mui/material/Typography";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 import TogoModalEdit from "./togo-modal.edit";
 
 const useStyles = makeStyles(() => ({
-  li: {
+  divSm: {
+    display: "grid",
+    gridTemplateColumns: "80% 10%",
+    margin: "20px 0",
+  },
+  div: {
     display: "grid",
     gridTemplateColumns: "80% 20%",
     margin: "20px 0",
+  },
+  h2: {
+    wordBreak: "break-all",
   },
   accordionDetails: {
     textAlign: "left",
     fontSize: "18px",
   },
+  iconDivSm: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   iconDiv: {
-    // width: 100,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
   },
   iconEdit: {
-    // marginRight: "8px",
     margin: "0 20px",
     color: "#329932",
     fontSize: 30,
@@ -61,9 +73,6 @@ const useStyles = makeStyles(() => ({
       color: "#ff9999",
     },
   },
-  urlIconDiv: {
-    margin: "0 0 15px 15px",
-  },
 }));
 
 const TogoComponent = ({
@@ -80,30 +89,28 @@ const TogoComponent = ({
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  return (
-    <>
-      <li key={id} className={classes.li}>
-        <Accordion>
-          <AccordionSummary
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-            sx={{ textOverflow: "ellipsis", overflow: "hidden" }}
-          >
-            <h2
-              style={
-                isDone
-                  ? { textDecoration: "line-through 2px" }
-                  : { textDecoration: "none" }
-              }
-            >
-              {title}
-            </h2>
-          </AccordionSummary>
-          <AccordionDetails className={classes.accordionDetails}>
-            <p>{memo}</p>
-          </AccordionDetails>
+  const sm = useMediaQuery("(max-width:600px)");
+  const md = useMediaQuery("(max-width:900px)");
 
-          <div role="presentation" className={classes.urlIconDiv}>
+  return (
+    <div key={id} className={classes.div}>
+      <Accordion>
+        <AccordionSummary aria-controls="panel1a-content" id="panel1a-header">
+          <h2
+            style={
+              isDone
+                ? { textDecoration: "line-through 2px" }
+                : { textDecoration: "none" }
+            }
+            className={sm && classes.h2}
+          >
+            {title}
+          </h2>
+        </AccordionSummary>
+        <AccordionDetails className={classes.accordionDetails}>
+          <p>{memo}</p>
+
+          <div role="presentation">
             <Breadcrumbs aria-label="breadcrumb">
               {refUrl1 && (
                 <Link
@@ -170,36 +177,47 @@ const TogoComponent = ({
               )}
             </Breadcrumbs>
           </div>
-        </Accordion>
-        <div className={classes.iconDiv}>
-          <Checkbox
-            color="secondary"
-            sx={{ "& .MuiSvgIcon-root": { fontSize: 30 } }}
-            onClick={() => handleDoneUndone(id)}
-          />
+        </AccordionDetails>
+      </Accordion>
+      <div className={sm ? classes.iconDivSm : classes.iconDiv}>
+        <Checkbox
+          color="secondary"
+          sx={{ "& .MuiSvgIcon-root": { fontSize: 30 } }}
+          onClick={() => handleDoneUndone(id)}
+        />
 
-          <ModeEditIcon className={classes.iconEdit} onClick={handleOpen} />
-          <TogoModalEdit
-            label={label}
-            data={data}
-            open={open}
-            handleClose={handleClose}
-            handleEdit={handleEdit}
-          />
+        <ModeEditIcon
+          className={classes.iconEdit}
+          onClick={handleOpen}
+          sx={
+            sm
+              ? { marginBottom: "3px" }
+              : md
+              ? { margin: "0 8px" }
+              : { margin: "0 20px" }
+          }
+        />
+        <TogoModalEdit
+          label={label}
+          data={data}
+          open={open}
+          handleClose={handleClose}
+          handleEdit={handleEdit}
+        />
 
-          <DeleteForeverIcon
-            className={classes.iconDelete}
-            onClick={() => {
-              if (
-                window.confirm("Are you sure you want to delete this?") === true
-              ) {
-                handleDelete(id);
-              }
-            }}
-          />
-        </div>
-      </li>
-    </>
+        <DeleteForeverIcon
+          className={classes.iconDelete}
+          onClick={() => {
+            if (
+              window.confirm("Are you sure you want to delete this?") === true
+            ) {
+              handleDelete(id);
+            }
+          }}
+        />
+      </div>
+      {/* </li> */}
+    </div>
   );
 };
 

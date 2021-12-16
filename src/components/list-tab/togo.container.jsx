@@ -124,7 +124,7 @@ const Togo = ({ label }) => {
         handleChange={handleChange}
       />
 
-      <ul>
+      <>
         {label === "TO GO" &&
           togos.length !== 0 &&
           togos.map((togo) => (
@@ -156,7 +156,7 @@ const Togo = ({ label }) => {
               />
             </>
           ))}
-      </ul>
+      </>
     </div>
   );
 };
