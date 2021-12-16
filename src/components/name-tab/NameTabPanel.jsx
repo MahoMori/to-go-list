@@ -2,7 +2,6 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 
@@ -19,12 +18,7 @@ function TabPanel(props) {
       aria-labelledby={`vertical-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          {/* <Typography>{children}</Typography> */}
-          {children}
-        </Box>
-      )}
+      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
     </div>
   );
 }
@@ -51,7 +45,7 @@ export default function NameTabPanel() {
         height: 224,
       }}
     >
-      <Grid container spacing={2}>
+      <Grid container>
         <Grid item xs={2}>
           <Tabs
             orientation="vertical"
@@ -62,7 +56,6 @@ export default function NameTabPanel() {
             sx={{
               borderRight: 1,
               borderColor: "divider",
-              // width: "15%",
               height: "calc(100vh - 64px)",
             }}
           >
