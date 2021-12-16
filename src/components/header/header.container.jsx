@@ -25,21 +25,21 @@ const HeaderContainer = () => {
   const classes = useStyles();
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box>
       <AppBar position="static" sx={{ backgroundColor: "#929292" }}>
         <Toolbar>
           <Grid container spacing={2}>
-            <Grid item xs={8}>
+            <Grid item sm={12} md={8} sx={{ width: "100%" }}>
               <Typography variant="h6" component="div">
                 TO GO / TO DO in Vancouver
               </Typography>
             </Grid>
-            <Grid item xs={2}>
-              <Typography variant="caption" component="div">
+            <Grid item sm={6} md={2} sx={{ width: "50%", marginTop: "7px" }}>
+              <Typography variant="summary" component="div" sx={{}}>
                 Signed in as: Maho
               </Typography>
             </Grid>
-            <Grid item xs={2}>
+            <Grid item sm={6} md={2} sx={{ width: "50%" }}>
               <Button color="inherit">Logout</Button>
             </Grid>
           </Grid>

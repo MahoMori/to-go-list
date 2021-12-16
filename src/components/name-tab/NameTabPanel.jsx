@@ -5,7 +5,10 @@ import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 
+import useMediaQuery from "@mui/material/useMediaQuery";
+
 import ListTabPanel from "../list-tab/ListTabPanel";
+import NavBar from "./NavBar";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -30,6 +33,8 @@ TabPanel.propTypes = {
 };
 
 export default function NameTabPanel() {
+  const matches = useMediaQuery("(max-width:600px)");
+
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -45,25 +50,50 @@ export default function NameTabPanel() {
         height: 224,
       }}
     >
-      <Grid container>
-        <Grid item xs={2}>
-          <Tabs
-            orientation="vertical"
-            variant="scrollable"
-            value={value}
-            onChange={handleChange}
-            aria-label="Vertical tabs example"
-            sx={{
-              borderRight: 1,
-              borderColor: "divider",
-              height: "calc(100vh - 64px)",
-            }}
-          >
-            <Tab label="Maho" />
-            <Tab label="Tori" />
-          </Tabs>
-        </Grid>
-        <Grid item xs={10}>
+      <Grid container sx={{ width: "100%" }}>
+        {matches ? (
+          <Grid item sm={12}>
+            <NavBar>
+              <Tabs
+                orientation="vertical"
+                variant="scrollable"
+                value={value}
+                onChange={handleChange}
+                aria-label="Vertical tabs example"
+                sx={{
+                  borderRight: 1,
+                  borderColor: "divider",
+                  height: "calc(100vh - 64px)",
+                  margin: "15px 0",
+                }}
+              >
+                <Tab label="Maho" />
+                <Tab label="Tori" />
+              </Tabs>
+            </NavBar>
+          </Grid>
+        ) : (
+          <Grid item md={2}>
+            <Tabs
+              orientation="vertical"
+              variant="scrollable"
+              value={value}
+              onChange={handleChange}
+              aria-label="Vertical tabs example"
+              sx={{
+                borderRight: 1,
+                borderColor: "divider",
+                height: "calc(100vh - 64px)",
+              }}
+            >
+              <p>matches</p>
+              <Tab label="Maho" />
+              <Tab label="Tori" />
+            </Tabs>
+          </Grid>
+        )}
+
+        <Grid item sm={12} md={10} sx={{ width: "100%" }}>
           <TabPanel value={value} index={0}>
             <ListTabPanel />
           </TabPanel>
