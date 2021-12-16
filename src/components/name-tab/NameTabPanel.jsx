@@ -92,8 +92,7 @@ export default function NameTabPanel() {
           </Grid>
         )}
 
-        <Grid item md={10} sx={{ width: "85%" }}>
-          {/* <Grid item sx={{ width: "100%" }}> */}
+        <Grid item md={10} sx={matches ? { width: "100%" } : { width: "85%" }}>
           <TabPanel value={value} index={0}>
             <ListTabPanel />
           </TabPanel>

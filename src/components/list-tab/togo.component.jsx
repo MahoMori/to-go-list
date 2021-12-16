@@ -21,6 +21,8 @@ import Looks3Icon from "@mui/icons-material/Looks3";
 
 import { makeStyles } from "@material-ui/core";
 
+import Typography from "@mui/material/Typography";
+
 import TogoModalEdit from "./togo-modal.edit";
 
 const useStyles = makeStyles(() => ({
@@ -82,7 +84,11 @@ const TogoComponent = ({
     <>
       <li key={id} className={classes.li}>
         <Accordion>
-          <AccordionSummary aria-controls="panel1a-content" id="panel1a-header">
+          <AccordionSummary
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+            sx={{ textOverflow: "ellipsis", overflow: "hidden" }}
+          >
             <h2
               style={
                 isDone
