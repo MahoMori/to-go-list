@@ -18,8 +18,15 @@ const boxStyle = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 450,
+  width: {
+    xs: "70%",
+    sm: "80%",
+    md: 450,
+    lg: 450,
+    xl: 800,
+  },
   height: "75%",
+  overflowY: "scroll",
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -30,13 +37,15 @@ const textfieldStyle = {
   marginBottom: "20px",
 };
 
-export default function TogoModalEdit({ data, open, handleClose, handleEdit }) {
+export default function TogoModalEdit({
+  label,
+  data,
+  open,
+  handleClose,
+  handleEdit,
+}) {
   const classes = useStyles();
   const { id, title, memo, refUrl1, refUrl2, refUrl3 } = data;
-
-  // const [open, setOpen] = React.useState(false);
-  // const handleOpen = () => setOpen(true);
-  // const handleClose = () => setOpen(false);
 
   const [editData, setEditData] = React.useState({
     id,
@@ -91,7 +100,7 @@ export default function TogoModalEdit({ data, open, handleClose, handleEdit }) {
             color="secondary"
             fullWidth
             id="standard-basic"
-            label="Map URL"
+            label={label === "TO GO" ? "Map URL" : "Reference URL 1"}
             variant="standard"
             name="refUrl1"
             onChange={handleChange}
@@ -102,7 +111,7 @@ export default function TogoModalEdit({ data, open, handleClose, handleEdit }) {
             color="secondary"
             fullWidth
             id="standard-basic"
-            label="Website URL"
+            label={label === "TO GO" ? "Website URL" : "Reference URL 2"}
             variant="standard"
             name="refUrl2"
             onChange={handleChange}
@@ -113,7 +122,7 @@ export default function TogoModalEdit({ data, open, handleClose, handleEdit }) {
             color="secondary"
             fullWidth
             id="standard-basic"
-            label="Other URL"
+            label={label === "TO GO" ? "Other URL" : "Reference URL 3"}
             variant="standard"
             name="refUrl3"
             onChange={handleChange}
