@@ -10,6 +10,8 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import ListTabPanel from "../list-tab/ListTabPanel";
 import NavBar from "./NavBar";
 
+import usersContext from "../users-test/users";
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -33,6 +35,8 @@ TabPanel.propTypes = {
 };
 
 export default function NameTabPanel() {
+  const users = React.useContext(usersContext);
+
   const matches = useMediaQuery("(max-width:600px)");
 
   const [value, setValue] = React.useState(0);
@@ -67,8 +71,11 @@ export default function NameTabPanel() {
                   margin: "15px 0",
                 }}
               >
-                <Tab label="Maho" />
-                <Tab label="Tori" />
+                {users.map((user) => (
+                  <Tab label={user} />
+                ))}
+                {/* <Tab label="Maho" />
+                <Tab label="Tori" /> */}
               </Tabs>
             </NavBar>
           </Grid>
@@ -86,19 +93,31 @@ export default function NameTabPanel() {
                 height: "calc(100vh - 64px)",
               }}
             >
-              <Tab label="Maho" />
-              <Tab label="Tori" />
+              {/* <Tab label="All" /> */}
+              {users.map((user) => (
+                <Tab label={user} />
+              ))}
+              {/* <Tab label="Maho" />
+              <Tab label="Tori" /> */}
             </Tabs>
           </Grid>
         )}
 
         <Grid item md={10} sx={matches ? { width: "100%" } : { width: "85%" }}>
-          <TabPanel value={value} index={0}>
+          {/* <TabPanel value={value} index={0}>
+            all
+          </TabPanel> */}
+          {users.map((user, i) => (
+            <TabPanel value={value} index={i + 1}>
+              <ListTabPanel nameOfCreator={user} />
+            </TabPanel>
+          ))}
+          {/* <TabPanel value={value} index={0}>
             <ListTabPanel />
           </TabPanel>
           <TabPanel value={value} index={1}>
             Item Two
-          </TabPanel>
+          </TabPanel> */}
         </Grid>
       </Grid>
     </Box>

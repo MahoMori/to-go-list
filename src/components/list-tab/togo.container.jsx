@@ -18,7 +18,7 @@ import Button from "@mui/material/Button";
 import TogoModalAdd from "./togo-modal.add";
 import TogoComponent from "./togo.component";
 
-const Togo = ({ label }) => {
+const Togo = ({ label, nameOfCreator }) => {
   const togos = useSelector((state) => state.togo.togos);
   const todos = useSelector((state) => state.todo.todos);
   const dispatch = useDispatch();
@@ -33,7 +33,7 @@ const Togo = ({ label }) => {
   // });
 
   const [data, setData] = useState({
-    nameOfCreator: "Maho",
+    nameOfCreator,
     title: "",
     memo: "",
     refUrl1: "",
@@ -51,7 +51,7 @@ const Togo = ({ label }) => {
     if (label === "TO GO") {
       dispatch(createTogo(data));
       setData({
-        nameOfCreator: "Maho",
+        nameOfCreator,
         title: "",
         memo: "",
         refUrl1: "",
@@ -62,7 +62,7 @@ const Togo = ({ label }) => {
     if (label === "TO DO") {
       dispatch(createTodo(data));
       setData({
-        nameOfCreator: "Maho",
+        nameOfCreator,
         title: "",
         memo: "",
         refUrl1: "",
@@ -127,31 +127,35 @@ const Togo = ({ label }) => {
       <>
         {label === "TO GO" &&
           togos.length !== 0 &&
-          togos.map((togo) => (
-            <>
-              <TogoComponent
-                label={label}
-                data={togo}
-                handleDoneUndone={handleDoneUndone}
-                handleDelete={handleDelete}
-                handleEdit={handleEdit}
-              />
-            </>
-          ))}
+          togos
+            .filter((togo) => togo.nameOfCreator === nameOfCreator)
+            .map((togo) => (
+              <>
+                <TogoComponent
+                  label={label}
+                  data={togo}
+                  handleDoneUndone={handleDoneUndone}
+                  handleDelete={handleDelete}
+                  handleEdit={handleEdit}
+                />
+              </>
+            ))}
 
         {label === "TO DO" &&
           todos.length !== 0 &&
-          todos.map((todo) => (
-            <>
-              <TogoComponent
-                label={label}
-                data={todo}
-                handleDoneUndone={handleDoneUndone}
-                handleDelete={handleDelete}
-                handleEdit={handleEdit}
-              />
-            </>
-          ))}
+          todos
+            .filter((todo) => todo.nameOfCreator === nameOfCreator)
+            .map((todo) => (
+              <>
+                <TogoComponent
+                  label={label}
+                  data={todo}
+                  handleDoneUndone={handleDoneUndone}
+                  handleDelete={handleDelete}
+                  handleEdit={handleEdit}
+                />
+              </>
+            ))}
       </>
     </div>
   );

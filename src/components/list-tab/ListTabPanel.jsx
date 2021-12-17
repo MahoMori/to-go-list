@@ -33,7 +33,7 @@ TabPanel.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-export default function ListTabPanel() {
+export default function ListTabPanel({ nameOfCreator }) {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -57,10 +57,10 @@ export default function ListTabPanel() {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <Togo label={labelTogo} />
+        <Togo label={labelTogo} nameOfCreator={nameOfCreator} />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <Togo label={labelTodo} />
+        <Togo label={labelTodo} nameOfCreator={nameOfCreator} />
       </TabPanel>
     </Box>
   );
