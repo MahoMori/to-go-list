@@ -37,10 +37,10 @@ export default function TemporaryDrawer({ children }) {
 
   return (
     <div>
-      {["left"].map((anchor) => (
+      {["top"].map((anchor) => (
         <React.Fragment key={anchor}>
           <Button onClick={toggleDrawer(anchor, true)}>
-            <PeopleIcon sx={{ mr: 0.5 }} />
+            <PeopleIcon sx={{ mr: 0.5, marginTop: "10px" }} />
           </Button>
           <Drawer
             anchor={anchor}
