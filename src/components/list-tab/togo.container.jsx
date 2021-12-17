@@ -134,7 +134,6 @@ const Togo = ({ label }) => {
                 data={togo}
                 handleDoneUndone={handleDoneUndone}
                 handleDelete={handleDelete}
-                setData={setData}
                 handleEdit={handleEdit}
               />
             </>
@@ -145,13 +144,10 @@ const Togo = ({ label }) => {
           todos.map((todo) => (
             <>
               <TogoComponent
+                label={label}
                 data={todo}
                 handleDoneUndone={handleDoneUndone}
                 handleDelete={handleDelete}
-                open={open}
-                handleOpen={handleOpen}
-                handleClose={handleClose}
-                handleChange={handleChange}
                 handleEdit={handleEdit}
               />
             </>
