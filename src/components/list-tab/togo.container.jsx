@@ -18,7 +18,7 @@ import Button from "@mui/material/Button";
 import TogoModalAdd from "./togo-modal.add";
 import TogoComponent from "./togo.component";
 
-const Togo = ({ label }) => {
+const Togo = ({ label, nameOfCreator }) => {
   const togos = useSelector((state) => state.togo.togos);
   const todos = useSelector((state) => state.todo.todos);
   const dispatch = useDispatch();
@@ -33,7 +33,7 @@ const Togo = ({ label }) => {
   // });
 
   const [data, setData] = useState({
-    nameOfCreator: "Maho",
+    nameOfCreator,
     title: "",
     memo: "",
     refUrl1: "",
@@ -51,7 +51,7 @@ const Togo = ({ label }) => {
     if (label === "TO GO") {
       dispatch(createTogo(data));
       setData({
-        nameOfCreator: "Maho",
+        nameOfCreator,
         title: "",
         memo: "",
         refUrl1: "",
@@ -62,7 +62,7 @@ const Togo = ({ label }) => {
     if (label === "TO DO") {
       dispatch(createTodo(data));
       setData({
-        nameOfCreator: "Maho",
+        nameOfCreator,
         title: "",
         memo: "",
         refUrl1: "",
@@ -108,6 +108,7 @@ const Togo = ({ label }) => {
 
   return (
     <div>
+      <p>{data.nameOfCreator}</p>
       <Button
         size="large"
         onClick={handleOpen}
@@ -134,7 +135,7 @@ const Togo = ({ label }) => {
                 data={togo}
                 handleDoneUndone={handleDoneUndone}
                 handleDelete={handleDelete}
-                setData={setData}
+                // setData={setData}
                 handleEdit={handleEdit}
               />
             </>
@@ -145,13 +146,14 @@ const Togo = ({ label }) => {
           todos.map((todo) => (
             <>
               <TogoComponent
+                label={label}
                 data={todo}
                 handleDoneUndone={handleDoneUndone}
                 handleDelete={handleDelete}
-                open={open}
-                handleOpen={handleOpen}
-                handleClose={handleClose}
-                handleChange={handleChange}
+                // open={open}
+                // handleOpen={handleOpen}
+                // handleClose={handleClose}
+                // handleChange={handleChange}
                 handleEdit={handleEdit}
               />
             </>
