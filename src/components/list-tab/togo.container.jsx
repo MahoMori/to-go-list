@@ -108,7 +108,6 @@ const Togo = ({ label, nameOfCreator }) => {
 
   return (
     <div>
-      <p>{data.nameOfCreator}</p>
       <Button
         size="large"
         onClick={handleOpen}
@@ -128,36 +127,35 @@ const Togo = ({ label, nameOfCreator }) => {
       <>
         {label === "TO GO" &&
           togos.length !== 0 &&
-          togos.map((togo) => (
-            <>
-              <TogoComponent
-                label={label}
-                data={togo}
-                handleDoneUndone={handleDoneUndone}
-                handleDelete={handleDelete}
-                // setData={setData}
-                handleEdit={handleEdit}
-              />
-            </>
-          ))}
+          togos
+            .filter((togo) => togo.nameOfCreator === nameOfCreator)
+            .map((togo) => (
+              <>
+                <TogoComponent
+                  label={label}
+                  data={togo}
+                  handleDoneUndone={handleDoneUndone}
+                  handleDelete={handleDelete}
+                  handleEdit={handleEdit}
+                />
+              </>
+            ))}
 
         {label === "TO DO" &&
           todos.length !== 0 &&
-          todos.map((todo) => (
-            <>
-              <TogoComponent
-                label={label}
-                data={todo}
-                handleDoneUndone={handleDoneUndone}
-                handleDelete={handleDelete}
-                // open={open}
-                // handleOpen={handleOpen}
-                // handleClose={handleClose}
-                // handleChange={handleChange}
-                handleEdit={handleEdit}
-              />
-            </>
-          ))}
+          todos
+            .filter((todo) => todo.nameOfCreator === nameOfCreator)
+            .map((todo) => (
+              <>
+                <TogoComponent
+                  label={label}
+                  data={todo}
+                  handleDoneUndone={handleDoneUndone}
+                  handleDelete={handleDelete}
+                  handleEdit={handleEdit}
+                />
+              </>
+            ))}
       </>
     </div>
   );

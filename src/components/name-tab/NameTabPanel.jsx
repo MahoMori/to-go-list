@@ -93,6 +93,7 @@ export default function NameTabPanel() {
                 height: "calc(100vh - 64px)",
               }}
             >
+              {/* <Tab label="All" /> */}
               {users.map((user) => (
                 <Tab label={user} />
               ))}
@@ -103,8 +104,11 @@ export default function NameTabPanel() {
         )}
 
         <Grid item md={10} sx={matches ? { width: "100%" } : { width: "85%" }}>
+          {/* <TabPanel value={value} index={0}>
+            all
+          </TabPanel> */}
           {users.map((user, i) => (
-            <TabPanel value={value} index={i}>
+            <TabPanel value={value} index={i + 1}>
               <ListTabPanel nameOfCreator={user} />
             </TabPanel>
           ))}
