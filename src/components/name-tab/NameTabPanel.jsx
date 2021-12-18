@@ -1,4 +1,6 @@
 import * as React from "react";
+import { Route } from "react-router-dom";
+
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -93,7 +95,6 @@ export default function NameTabPanel() {
                 height: "calc(100vh - 64px)",
               }}
             >
-              {/* <Tab label="All" /> */}
               {users.map((user) => (
                 <Tab label={user} />
               ))}
@@ -104,20 +105,11 @@ export default function NameTabPanel() {
         )}
 
         <Grid item md={10} sx={matches ? { width: "100%" } : { width: "85%" }}>
-          {/* <TabPanel value={value} index={0}>
-            all
-          </TabPanel> */}
           {users.map((user, i) => (
-            <TabPanel value={value} index={i + 1}>
+            <TabPanel value={value} index={i}>
               <ListTabPanel nameOfCreator={user} />
             </TabPanel>
           ))}
-          {/* <TabPanel value={value} index={0}>
-            <ListTabPanel />
-          </TabPanel>
-          <TabPanel value={value} index={1}>
-            Item Two
-          </TabPanel> */}
         </Grid>
       </Grid>
     </Box>
