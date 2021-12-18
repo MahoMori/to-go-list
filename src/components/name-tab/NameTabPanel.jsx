@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useParams, Link } from "react-router-dom";
 
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
@@ -37,7 +36,6 @@ TabPanel.propTypes = {
 };
 
 export default function NameTabPanel() {
-  const { id } = useParams();
   const users = React.useContext(usersContext);
 
   const matches = useMediaQuery("(max-width:600px)");
@@ -94,13 +92,6 @@ export default function NameTabPanel() {
                 height: "calc(100vh - 64px)",
               }}
             >
-              {/* {users.map((user) => {
-                user === id && (
-                  <Link to={`/${user}`}>
-                    <Tab label={user} />
-                  </Link>
-                );
-              })} */}
               {users.map((user) => (
                 <Tab label={user} />
               ))}
@@ -109,20 +100,11 @@ export default function NameTabPanel() {
         )}
 
         <Grid item md={10} sx={matches ? { width: "100%" } : { width: "85%" }}>
-          {users.map((user, i) => {
-            user === id && (
-              <Link to={`/${user}`}>
-                <TabPanel value={value} index={i}>
-                  <ListTabPanel nameOfCreator={user} />
-                </TabPanel>
-              </Link>
-            );
-          })}
-          {/* {users.map((user, i) => (
+          {users.map((user, i) => (
             <TabPanel value={value} index={i}>
               <ListTabPanel nameOfCreator={user} />
             </TabPanel>
-          ))} */}
+          ))}
         </Grid>
       </Grid>
     </Box>
