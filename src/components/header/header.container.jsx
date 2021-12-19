@@ -5,25 +5,10 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
 
 import Grid from "@mui/material/Grid";
 
-import { makeStyles } from "@material-ui/core";
-
-const useStyles = makeStyles(() => ({
-  headerLeft: {},
-  headerRight: {
-    float: "right",
-    display: "flex",
-    justifyContent: "space-around",
-  },
-}));
-
 const HeaderContainer = () => {
-  const classes = useStyles();
-
   return (
     <Box>
       <AppBar position="static" sx={{ backgroundColor: "#929292" }}>
