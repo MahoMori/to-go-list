@@ -13,6 +13,16 @@ import {
   deleteTodo,
 } from "../../redux/todo/todoSlice";
 
+import {
+  collection,
+  doc,
+  addDoc,
+  getDocs,
+  updateDoc,
+  deleteDoc,
+} from "firebase/firestore";
+import { db } from "../../firebase/firebase.util";
+
 import Button from "@mui/material/Button";
 
 import TogoModalAdd from "./togo-modal.add";
@@ -22,15 +32,6 @@ const Togo = ({ label, nameOfCreator }) => {
   const togos = useSelector((state) => state.togo.togos);
   const todos = useSelector((state) => state.todo.todos);
   const dispatch = useDispatch();
-
-  // const [togo, setTogo] = useState({
-  //   nameOfCreator: "Maho",
-  //   title: "",
-  //   memo: "",
-  //   refUrl1: "",
-  //   refUrl2: "",
-  //   refUrl3: "",
-  // });
 
   const [data, setData] = useState({
     nameOfCreator,
@@ -46,8 +47,7 @@ const Togo = ({ label, nameOfCreator }) => {
     setData({ ...data, [name]: value });
   };
 
-  const handleSubmit = () => {
-    // e.preventDefault();
+  const handleSubmit = async () => {
     if (label === "TO GO") {
       dispatch(createTogo(data));
       setData({
@@ -58,6 +58,13 @@ const Togo = ({ label, nameOfCreator }) => {
         refUrl2: "",
         refUrl3: "",
       });
+
+      try {
+        const docRef = await addDoc(collection(db, "togo"), data);
+        console.log(docRef.id);
+      } catch (error) {
+        console.log(error);
+      }
     }
     if (label === "TO DO") {
       dispatch(createTodo(data));
@@ -69,11 +76,17 @@ const Togo = ({ label, nameOfCreator }) => {
         refUrl2: "",
         refUrl3: "",
       });
+
+      try {
+        const docRef = await addDoc(collection(db, "todo"), data);
+        console.log(docRef.id);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
   const handleEdit = (payload) => {
-    // dispatch(editTogo(payload));
     if (label === "TO GO") {
       dispatch(editTogo(payload));
     }

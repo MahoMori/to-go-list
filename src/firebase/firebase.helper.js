@@ -1,4 +1,10 @@
-import { setDoc, doc, writeBatch, collection } from "firebase/firestore";
+import {
+  serverTimestamp,
+  setDoc,
+  doc,
+  writeBatch,
+  collection,
+} from "firebase/firestore";
 import { db } from "./firebase.util";
 
 export const createUserProfileDocument = async (userAuth, additionalData) => {
@@ -8,6 +14,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
     const formData = {
       displayName: additionalData.displayName,
       email: userAuth.email,
+      timestamp: serverTimestamp(),
     };
     await setDoc(doc(db, "users", userAuth.uid), formData);
   } catch (error) {
