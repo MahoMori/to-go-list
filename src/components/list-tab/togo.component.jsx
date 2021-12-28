@@ -109,6 +109,7 @@ const TogoComponent = ({
         </AccordionSummary>
         <AccordionDetails className={classes.accordionDetails}>
           <p>{memo}</p>
+          <p>{id}</p>
 
           <div role="presentation">
             <Breadcrumbs aria-label="breadcrumb">
@@ -183,7 +184,8 @@ const TogoComponent = ({
         <Checkbox
           color="secondary"
           sx={{ "& .MuiSvgIcon-root": { fontSize: 30 } }}
-          onClick={() => handleDoneUndone(id)}
+          checked={isDone}
+          onChange={() => handleDoneUndone(id, isDone)}
         />
 
         <ModeEditIcon

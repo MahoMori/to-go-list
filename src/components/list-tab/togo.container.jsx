@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   createTogo,
@@ -33,6 +33,61 @@ const Togo = ({ label, nameOfCreator }) => {
   const todos = useSelector((state) => state.todo.todos);
   const dispatch = useDispatch();
 
+  const [receivedTogoData, setReceivedTogoData] = useState([]);
+  const getTogoData = async () => {
+    try {
+      const querySnapshot = await getDocs(collection(db, "togo"));
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        setReceivedTogoData((prevData) => [
+          ...prevData,
+          {
+            id: doc.id,
+            nameOfCreator: data.nameOfCreator,
+            title: data.title,
+            memo: data.memo,
+            refUrl1: data.refUrl1,
+            refUrl2: data.refUrl2,
+            refUrl3: data.refUrl3,
+            isDone: data.isDone,
+          },
+        ]);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const [receivedTodoData, setReceivedTodoData] = useState([]);
+  const getTodoData = async () => {
+    try {
+      const querySnapshot = await getDocs(collection(db, "todo"));
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        setReceivedTodoData((prevData) => [
+          ...prevData,
+          {
+            id: doc.id,
+            nameOfCreator: data.nameOfCreator,
+            title: data.title,
+            memo: data.memo,
+            refUrl1: data.refUrl1,
+            refUrl2: data.refUrl2,
+            refUrl3: data.refUrl3,
+            isDone: data.isDone,
+          },
+        ]);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getTogoData();
+    getTodoData();
+  }, []);
+
   const [data, setData] = useState({
     nameOfCreator,
     title: "",
@@ -40,6 +95,7 @@ const Togo = ({ label, nameOfCreator }) => {
     refUrl1: "",
     refUrl2: "",
     refUrl3: "",
+    isDone: false,
   });
 
   const handleChange = (e) => {
@@ -49,69 +105,113 @@ const Togo = ({ label, nameOfCreator }) => {
 
   const handleSubmit = async () => {
     if (label === "TO GO") {
-      dispatch(createTogo(data));
-      setData({
-        nameOfCreator,
-        title: "",
-        memo: "",
-        refUrl1: "",
-        refUrl2: "",
-        refUrl3: "",
-      });
-
       try {
         const docRef = await addDoc(collection(db, "togo"), data);
-        console.log(docRef.id);
+        setData({ ...data, id: docRef.id });
+        dispatch(createTogo(data));
+        setData({
+          nameOfCreator,
+          title: "",
+          memo: "",
+          refUrl1: "",
+          refUrl2: "",
+          refUrl3: "",
+          isDone: false,
+        });
       } catch (error) {
         console.log(error);
+        alert("Something went wrong. Please try again.");
       }
     }
     if (label === "TO DO") {
-      dispatch(createTodo(data));
-      setData({
-        nameOfCreator,
-        title: "",
-        memo: "",
-        refUrl1: "",
-        refUrl2: "",
-        refUrl3: "",
-      });
-
       try {
         const docRef = await addDoc(collection(db, "todo"), data);
-        console.log(docRef.id);
+        setData({ id: docRef.id, ...data });
+        dispatch(createTodo(data));
+        setData({
+          nameOfCreator,
+          title: "",
+          memo: "",
+          refUrl1: "",
+          refUrl2: "",
+          refUrl3: "",
+          isDone: false,
+        });
       } catch (error) {
         console.log(error);
+        alert("Something went wrong. Please try again.");
       }
     }
   };
 
-  const handleEdit = (payload) => {
+  const handleEdit = async (payload) => {
     if (label === "TO GO") {
       dispatch(editTogo(payload));
+      try {
+        const dataRef = doc(db, "togo", payload.id);
+        await updateDoc(dataRef, payload);
+      } catch (error) {
+        console.log(error);
+        alert("Something went wrong. Please try again.");
+      }
     }
     if (label === "TO DO") {
       dispatch(editTodo(payload));
+      try {
+        const dataRef = doc(db, "todo", payload.id);
+        await updateDoc(dataRef, payload);
+      } catch (error) {
+        console.log(error);
+        alert("Something went wrong. Please try again.");
+      }
     }
   };
 
-  const handleDoneUndone = (id) => {
-    // dispatch(doneUndoneTogo(id));
+  const handleDoneUndone = async (id, isDone) => {
     if (label === "TO GO") {
       dispatch(doneUndoneTogo(id));
+      try {
+        const dataRef = doc(db, "togo", id);
+        if (isDone) {
+          await updateDoc(dataRef, { isDone: false });
+        } else {
+          await updateDoc(dataRef, { isDone: true });
+        }
+      } catch (error) {
+        console.log(error);
+        alert("Something went wrong. Please try again.");
+      }
     }
     if (label === "TO DO") {
       dispatch(doneUndoneTodo(id));
+      try {
+        const dataRef = doc(db, "todo", id);
+        await updateDoc(dataRef, { isDone: true });
+      } catch (error) {
+        console.log(error);
+        alert("Something went wrong. Please try again.");
+      }
     }
   };
 
-  const handleDelete = (id) => {
-    // dispatch(deleteTogo(id));
+  const handleDelete = async (id) => {
     if (label === "TO GO") {
       dispatch(deleteTogo(id));
+      try {
+        await deleteDoc(doc(db, "togo", id));
+      } catch (error) {
+        console.log(error);
+        alert("Something went wrong. Please try again.");
+      }
     }
     if (label === "TO DO") {
       dispatch(deleteTodo(id));
+      try {
+        await deleteDoc(doc(db, "todo", id));
+      } catch (error) {
+        console.log(error);
+        alert("Something went wrong. Please try again.");
+      }
     }
   };
 
@@ -139,8 +239,8 @@ const Togo = ({ label, nameOfCreator }) => {
 
       <>
         {label === "TO GO" &&
-          togos.length !== 0 &&
-          togos
+          receivedTogoData.length !== 0 &&
+          receivedTogoData
             .filter((togo) => togo.nameOfCreator === nameOfCreator)
             .map((togo) => (
               <>
@@ -155,8 +255,8 @@ const Togo = ({ label, nameOfCreator }) => {
             ))}
 
         {label === "TO DO" &&
-          todos.length !== 0 &&
-          todos
+          receivedTodoData.length !== 0 &&
+          receivedTodoData
             .filter((todo) => todo.nameOfCreator === nameOfCreator)
             .map((todo) => (
               <>

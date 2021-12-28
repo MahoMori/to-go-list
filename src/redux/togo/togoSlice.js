@@ -3,17 +3,16 @@ import { createSlice } from "@reduxjs/toolkit";
 export const togoSlice = createSlice({
   name: "togo",
   initialState: {
-    id: 0,
+    // id: 0,
     togos: [],
   },
 
   reducers: {
     createTogo: (state, action) => {
-      const { nameOfCreator, title, memo, refUrl1, refUrl2, refUrl3 } =
+      const { id, nameOfCreator, title, memo, refUrl1, refUrl2, refUrl3 } =
         action.payload;
-      state.id++;
       const newTogo = {
-        id: state.id,
+        id,
         nameOfCreator,
         title,
         memo,
