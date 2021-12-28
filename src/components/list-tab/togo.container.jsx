@@ -20,6 +20,8 @@ import {
   getDocs,
   updateDoc,
   deleteDoc,
+  query,
+  onSnapshot,
 } from "firebase/firestore";
 import { db } from "../../firebase/firebase.util";
 
@@ -86,6 +88,30 @@ const Togo = ({ label, nameOfCreator }) => {
   useEffect(() => {
     getTogoData();
     getTodoData();
+  }, []);
+
+  useEffect(() => {
+    const q = query(collection(db, "togo"));
+    const unsubscribe = onSnapshot(
+      q,
+      (snapshot) => {
+        snapshot.docChanges().forEach((change) => {
+          if (change.type === "added") {
+            console.log("New city: ", change.doc.data());
+          }
+          if (change.type === "modified") {
+            console.log("Modified city: ", change.doc.data());
+          }
+          if (change.type === "removed") {
+            console.log("Removed city: ", change.doc.data());
+          }
+        });
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+    unsubscribe();
   }, []);
 
   const [data, setData] = useState({
