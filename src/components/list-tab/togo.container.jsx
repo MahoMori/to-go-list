@@ -186,7 +186,11 @@ const Togo = ({ label, nameOfCreator }) => {
       dispatch(doneUndoneTodo(id));
       try {
         const dataRef = doc(db, "todo", id);
-        await updateDoc(dataRef, { isDone: true });
+        if (isDone) {
+          await updateDoc(dataRef, { isDone: false });
+        } else {
+          await updateDoc(dataRef, { isDone: true });
+        }
       } catch (error) {
         console.log(error);
         alert("Something went wrong. Please try again.");
