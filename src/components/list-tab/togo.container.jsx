@@ -36,29 +36,29 @@ const Togo = ({ label, nameOfCreator }) => {
   const dispatch = useDispatch();
 
   const [receivedTogoData, setReceivedTogoData] = useState([]);
-  const getTogoData = async () => {
-    try {
-      const querySnapshot = await getDocs(collection(db, "togo"));
-      querySnapshot.forEach((doc) => {
-        const data = doc.data();
-        setReceivedTogoData((prevData) => [
-          ...prevData,
-          {
-            id: doc.id,
-            nameOfCreator: data.nameOfCreator,
-            title: data.title,
-            memo: data.memo,
-            refUrl1: data.refUrl1,
-            refUrl2: data.refUrl2,
-            refUrl3: data.refUrl3,
-            isDone: data.isDone,
-          },
-        ]);
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const getTogoData = async () => {
+  //   try {
+  //     const querySnapshot = await getDocs(collection(db, "togo"));
+  //     querySnapshot.forEach((doc) => {
+  //       const data = doc.data();
+  //       setReceivedTogoData((prevData) => [
+  //         ...prevData,
+  //         {
+  //           id: doc.id,
+  //           nameOfCreator: data.nameOfCreator,
+  //           title: data.title,
+  //           memo: data.memo,
+  //           refUrl1: data.refUrl1,
+  //           refUrl2: data.refUrl2,
+  //           refUrl3: data.refUrl3,
+  //           isDone: data.isDone,
+  //         },
+  //       ]);
+  //     });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const [receivedTodoData, setReceivedTodoData] = useState([]);
   const getTodoData = async () => {
@@ -86,7 +86,7 @@ const Togo = ({ label, nameOfCreator }) => {
   };
 
   useEffect(() => {
-    getTogoData();
+    // getTogoData();
     getTodoData();
   }, []);
 
@@ -96,14 +96,40 @@ const Togo = ({ label, nameOfCreator }) => {
       q,
       (snapshot) => {
         snapshot.docChanges().forEach((change) => {
+          let changedData = change.doc.data();
+          const changedDataId = change.doc.id;
+          changedData.id = changedDataId;
+
           if (change.type === "added") {
-            console.log("New city: ", change.doc.data());
+            setReceivedTogoData((prevData) => [...prevData, changedData]);
+            console.log("Added: ", changedData, receivedTogoData);
           }
+
           if (change.type === "modified") {
-            console.log("Modified city: ", change.doc.data());
+            setReceivedTogoData(
+              receivedTogoData.map((data) =>
+                data.id === changedDataId
+                  ? {
+                      id: data.id,
+                      nameOfCreator: changedData.nameOfCreator,
+                      title: changedData.title,
+                      memo: changedData.memo,
+                      refUrl1: changedData.refUrl1,
+                      refUrl2: changedData.refUrl2,
+                      refUrl3: changedData.refUrl3,
+                      isDone: changedData.isDone,
+                    }
+                  : data
+              )
+            );
+            console.log("Modified: ", change.doc.data(), receivedTogoData);
           }
+
           if (change.type === "removed") {
-            console.log("Removed city: ", change.doc.data());
+            const newTogoData = [...receivedTogoData];
+            newTogoData.filter((data) => data.id !== changedDataId);
+            setReceivedTogoData(newTogoData);
+            console.log("Removed: ", change.doc.data(), receivedTogoData);
           }
         });
       },
@@ -111,7 +137,7 @@ const Togo = ({ label, nameOfCreator }) => {
         console.log(error);
       }
     );
-    unsubscribe();
+    return unsubscribe;
   }, []);
 
   const [data, setData] = useState({
@@ -226,7 +252,7 @@ const Togo = ({ label, nameOfCreator }) => {
 
   const handleDelete = async (id) => {
     if (label === "TO GO") {
-      dispatch(deleteTogo(id));
+      // dispatch(deleteTogo(id));
       try {
         await deleteDoc(doc(db, "togo", id));
       } catch (error) {
@@ -246,7 +272,11 @@ const Togo = ({ label, nameOfCreator }) => {
   };
 
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
+  const handleOpen = () => {
+    setOpen(true);
+
+    console.log(receivedTogoData);
+  };
   const handleClose = () => setOpen(false);
 
   return (
