@@ -1,26 +1,30 @@
 import React, { useState } from "react";
-// import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase/firebase.util";
 
 const LogIn = () => {
   const [user, setUser] = useState({ email: "", password: "" });
 
-  //   const navigate = useNavigate()
-  //   const location = useLocation()
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      //   const userCredential = await signInWithEmailAndPassword(auth, user.email, user.password)
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        user.email,
+        user.password
+      );
       await signInWithEmailAndPassword(auth, user.email, user.password);
       console.log("signed in successfully");
 
-      //   if(userCredential){
-      //     let from = location.state?.from?.pathname || '/'
-      //     navigate(from, { replace: true })
-      //   }
+      if (userCredential) {
+        let from = location.state?.from?.pathname || "/main";
+        navigate(from, { replace: true });
+      }
     } catch (error) {
       console.log(error.message);
     }

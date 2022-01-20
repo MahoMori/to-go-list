@@ -36,7 +36,7 @@ const SignUp = () => {
         password: "",
         confirmPassword: "",
       });
-      console.log("signed up success");
+      alert("Signed up successfully!");
     } catch (error) {
       console.log(error);
     }
