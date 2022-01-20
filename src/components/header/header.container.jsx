@@ -1,4 +1,6 @@
 import React from "react";
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebase/firebase.util";
 
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -24,6 +26,15 @@ const useStyles = makeStyles(() => ({
 const HeaderContainer = () => {
   const classes = useStyles();
 
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+      console.log("signed out successfully");
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <Box>
       <AppBar position="static" sx={{ backgroundColor: "#929292" }}>
@@ -40,7 +51,9 @@ const HeaderContainer = () => {
               </Typography>
             </Grid>
             <Grid item sm={6} md={2} sx={{ width: "50%" }}>
-              <Button color="inherit">Logout</Button>
+              <Button color="inherit" onClick={handleSignOut}>
+                Sign out
+              </Button>
             </Grid>
           </Grid>
           {/* <IconButton
