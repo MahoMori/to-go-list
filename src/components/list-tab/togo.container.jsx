@@ -36,61 +36,7 @@ const Togo = ({ label, nameOfCreator }) => {
   const dispatch = useDispatch();
 
   const [receivedTogoData, setReceivedTogoData] = useState([]);
-  // const getTogoData = async () => {
-  //   try {
-  //     const querySnapshot = await getDocs(collection(db, "togo"));
-  //     querySnapshot.forEach((doc) => {
-  //       const data = doc.data();
-  //       setReceivedTogoData((prevData) => [
-  //         ...prevData,
-  //         {
-  //           id: doc.id,
-  //           nameOfCreator: data.nameOfCreator,
-  //           title: data.title,
-  //           memo: data.memo,
-  //           refUrl1: data.refUrl1,
-  //           refUrl2: data.refUrl2,
-  //           refUrl3: data.refUrl3,
-  //           isDone: data.isDone,
-  //         },
-  //       ]);
-  //     });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  const [receivedTodoData, setReceivedTodoData] = useState([]);
-  const getTodoData = async () => {
-    try {
-      const querySnapshot = await getDocs(collection(db, "todo"));
-      querySnapshot.forEach((doc) => {
-        const data = doc.data();
-        setReceivedTodoData((prevData) => [
-          ...prevData,
-          {
-            id: doc.id,
-            nameOfCreator: data.nameOfCreator,
-            title: data.title,
-            memo: data.memo,
-            refUrl1: data.refUrl1,
-            refUrl2: data.refUrl2,
-            refUrl3: data.refUrl3,
-            isDone: data.isDone,
-          },
-        ]);
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    // getTogoData();
-    getTodoData();
-  }, []);
-
-  useEffect(() => {
+  const getTogoData = async () => {
     const q = query(collection(db, "togo"));
     const unsubscribe = onSnapshot(
       q,
@@ -106,29 +52,18 @@ const Togo = ({ label, nameOfCreator }) => {
           }
 
           if (change.type === "modified") {
-            setReceivedTogoData(
-              receivedTogoData.map((data) =>
-                data.id === changedDataId
-                  ? {
-                      id: data.id,
-                      nameOfCreator: changedData.nameOfCreator,
-                      title: changedData.title,
-                      memo: changedData.memo,
-                      refUrl1: changedData.refUrl1,
-                      refUrl2: changedData.refUrl2,
-                      refUrl3: changedData.refUrl3,
-                      isDone: changedData.isDone,
-                    }
-                  : data
-              )
-            );
+            setReceivedTogoData((prev) => {
+              return prev.map((data) =>
+                data.id === changedDataId ? { ...changedData } : data
+              );
+            });
             console.log("Modified: ", change.doc.data(), receivedTogoData);
           }
 
           if (change.type === "removed") {
-            const newTogoData = [...receivedTogoData];
-            newTogoData.filter((data) => data.id !== changedDataId);
-            setReceivedTogoData(newTogoData);
+            setReceivedTogoData((prev) => {
+              return prev.filter((data) => data.id !== changedDataId);
+            });
             console.log("Removed: ", change.doc.data(), receivedTogoData);
           }
         });
@@ -138,6 +73,51 @@ const Togo = ({ label, nameOfCreator }) => {
       }
     );
     return unsubscribe;
+  };
+
+  const [receivedTodoData, setReceivedTodoData] = useState([]);
+  const getTodoData = () => {
+    const q = query(collection(db, "todo"));
+    const unsubscribe = onSnapshot(
+      q,
+      (snapshot) => {
+        snapshot.docChanges().forEach((change) => {
+          let changedData = change.doc.data();
+          const changedDataId = change.doc.id;
+          changedData.id = changedDataId;
+
+          if (change.type === "added") {
+            setReceivedTodoData((prevData) => [...prevData, changedData]);
+            console.log("Added: ", changedData, receivedTogoData);
+          }
+
+          if (change.type === "modified") {
+            setReceivedTodoData((prev) => {
+              return prev.map((data) =>
+                data.id === changedDataId ? { ...changedData } : data
+              );
+            });
+            console.log("Modified: ", change.doc.data(), receivedTogoData);
+          }
+
+          if (change.type === "removed") {
+            setReceivedTodoData((prev) => {
+              return prev.filter((data) => data.id !== changedDataId);
+            });
+            console.log("Removed: ", change.doc.data(), receivedTogoData);
+          }
+        });
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+    return unsubscribe;
+  };
+
+  useEffect(() => {
+    getTogoData();
+    getTodoData();
   }, []);
 
   const [data, setData] = useState({
