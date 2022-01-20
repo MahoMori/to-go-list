@@ -1,15 +1,12 @@
 import "./App.css";
 
-// import SignUp from "./components/signup/signup.component.uname";
-// import SignupContainer from "./components/signup/signup.container";
-
+import SignUpLoginPage from "./components/signUp-logIn-page";
 import MainPage from "./components/main-page";
 
 function App() {
   return (
     <div className="App">
-      {/* <SignUp /> */}
-      {/* <SignupContainer /> */}
+      <SignUpLoginPage />
       <MainPage />
     </div>
   );
