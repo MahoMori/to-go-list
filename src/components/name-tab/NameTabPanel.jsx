@@ -35,7 +35,7 @@ TabPanel.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-export default function NameTabPanel() {
+export default function NameTabPanel({ allUser, currentUser }) {
   const users = React.useContext(usersContext);
 
   const matches = useMediaQuery("(max-width:600px)");
@@ -72,8 +72,8 @@ export default function NameTabPanel() {
                   margin: "15px 0",
                 }}
               >
-                {users.map((user) => (
-                  <Tab label={user} />
+                {allUser.map((user) => (
+                  <Tab label={user.displayName} />
                 ))}
               </Tabs>
             </NavBar>
@@ -92,19 +92,30 @@ export default function NameTabPanel() {
                 height: "calc(100vh - 64px)",
               }}
             >
-              {users.map((user) => (
-                <Tab label={user} />
+              {allUser.map((user) => (
+                <Tab label={user.displayName} />
               ))}
             </Tabs>
           </Grid>
         )}
 
         <Grid item md={10} sx={matches ? { width: "100%" } : { width: "85%" }}>
-          {users.map((user, i) => (
+          {allUser.map((user, i) =>
+            user.displayName === currentUser ? (
+              <TabPanel value={value} index={i}>
+                <ListTabPanel nameOfCreator={currentUser} />
+              </TabPanel>
+            ) : (
+              <TabPanel value={value} index={i}>
+                <ListTabPanel nameOfCreator={"not current user"} />
+              </TabPanel>
+            )
+          )}
+          {/* {users.map((user, i) => (
             <TabPanel value={value} index={i}>
               <ListTabPanel nameOfCreator={user} />
             </TabPanel>
-          ))}
+          ))} */}
         </Grid>
       </Grid>
     </Box>

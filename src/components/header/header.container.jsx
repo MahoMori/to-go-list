@@ -23,7 +23,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const HeaderContainer = () => {
+const HeaderContainer = ({ currentUser }) => {
   const classes = useStyles();
 
   const handleSignOut = async () => {
@@ -47,7 +47,7 @@ const HeaderContainer = () => {
             </Grid>
             <Grid item sm={6} md={2} sx={{ width: "50%", marginTop: "7px" }}>
               <Typography variant="summary" component="div" sx={{}}>
-                Signed in as: Maho
+                Signed in as: {currentUser}
               </Typography>
             </Grid>
             <Grid item sm={6} md={2} sx={{ width: "50%" }}>
