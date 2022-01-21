@@ -21,6 +21,10 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     justifyContent: "space-around",
   },
+  currenUser: {
+    textTransform: "uppercase",
+    fontWeight: "bold",
+  },
 }));
 
 const HeaderContainer = ({ currentUser }) => {
@@ -29,9 +33,10 @@ const HeaderContainer = ({ currentUser }) => {
   const handleSignOut = async () => {
     try {
       await signOut(auth);
-      console.log("signed out successfully");
+      console.log("Signed out successfully.");
     } catch (error) {
       console.log(error.message);
+      alert("Something went wrong. Please try again.");
     }
   };
 
@@ -47,7 +52,8 @@ const HeaderContainer = ({ currentUser }) => {
             </Grid>
             <Grid item sm={6} md={2} sx={{ width: "50%", marginTop: "7px" }}>
               <Typography variant="summary" component="div" sx={{}}>
-                Signed in as: {currentUser}
+                Signed in as:{" "}
+                <span className={classes.currenUser}>{currentUser}</span>
               </Typography>
             </Grid>
             <Grid item sm={6} md={2} sx={{ width: "50%" }}>
@@ -56,26 +62,6 @@ const HeaderContainer = ({ currentUser }) => {
               </Button>
             </Grid>
           </Grid>
-          {/* <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton> */}
-          {/* <Typography variant="h6" component="div">
-            TO GO / TO DO in Vancouver
-          </Typography> */}
-          {/* <Typography
-            variant="caption"
-            component="div"
-            sx={{ flexGrow: 1}}
-          >
-            Signed in as: Maho
-          </Typography> */}
-          {/* <Button color="inherit">Logout</Button> */}
         </Toolbar>
       </AppBar>
     </Box>

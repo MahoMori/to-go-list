@@ -111,11 +111,6 @@ export default function NameTabPanel({ allUser, currentUser }) {
               </TabPanel>
             )
           )}
-          {/* {users.map((user, i) => (
-            <TabPanel value={value} index={i}>
-              <ListTabPanel nameOfCreator={user} />
-            </TabPanel>
-          ))} */}
         </Grid>
       </Grid>
     </Box>

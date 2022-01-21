@@ -24,7 +24,7 @@ const MainPage = () => {
           // changedData.id = changedDataId;
 
           if (change.type === "added") {
-            setAllUser((prevData) => [...prevData, changedData]);
+            setAllUser((prevData) => [changedData, ...prevData]);
             console.log("Added: ", changedData);
           }
 
@@ -70,7 +70,7 @@ const MainPage = () => {
   return (
     <div>
       <HeaderContainer currentUser={currentUser} />
-      <NameTabPanel allUser={allUser.reverse()} currentUser={currentUser} />
+      <NameTabPanel allUser={allUser} currentUser={currentUser} />
     </div>
   );
 };

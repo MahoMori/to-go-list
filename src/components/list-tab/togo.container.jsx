@@ -17,7 +17,6 @@ import {
   collection,
   doc,
   addDoc,
-  getDocs,
   updateDoc,
   deleteDoc,
   query,
@@ -261,21 +260,25 @@ const Togo = ({ label, nameOfCreator }) => {
 
   return (
     <div>
-      <Button
-        size="large"
-        onClick={handleOpen}
-        color="secondary"
-        variant="outlined"
-      >
-        ADD NEW
-      </Button>
-      <TogoModalAdd
-        label={label}
-        open={open}
-        handleClose={handleClose}
-        handleSubmit={handleSubmit}
-        handleChange={handleChange}
-      />
+      {nameOfCreator !== "not current user" && (
+        <>
+          <Button
+            size="large"
+            onClick={handleOpen}
+            color="secondary"
+            variant="outlined"
+          >
+            ADD NEW
+          </Button>
+          <TogoModalAdd
+            label={label}
+            open={open}
+            handleClose={handleClose}
+            handleSubmit={handleSubmit}
+            handleChange={handleChange}
+          />
+        </>
+      )}
 
       <>
         {label === "TO GO" &&
