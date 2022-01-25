@@ -6,10 +6,6 @@ import { db, auth } from "../firebase/firebase.util";
 import HeaderContainer from "./header/header.container";
 import NameTabPanel from "./name-tab/NameTabPanel";
 
-// headerでcurrent logged in userのdisplay nameが必要
-// nametabpanelで全userのdisplya nameが必要
-// →　その中のlisttabpanelでcurrent logged in userのdisplay nameが必要
-
 const MainPage = () => {
   const [allUser, setAllUser] = useState([]);
 

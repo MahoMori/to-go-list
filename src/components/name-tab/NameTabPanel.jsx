@@ -11,8 +11,6 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import ListTabPanel from "../list-tab/ListTabPanel";
 import NavBar from "./NavBar";
 
-import usersContext from "../users-test/users";
-
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -36,8 +34,6 @@ TabPanel.propTypes = {
 };
 
 export default function NameTabPanel({ allUser, currentUser }) {
-  const users = React.useContext(usersContext);
-
   const matches = useMediaQuery("(max-width:600px)");
 
   const [value, setValue] = React.useState(0);
