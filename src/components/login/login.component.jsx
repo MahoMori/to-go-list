@@ -3,6 +3,13 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase/firebase.util";
 
+import {
+  CustomCard,
+  CustomTextFiled,
+  CustomButton,
+  CustomBoxLogIn,
+} from "../signUp-logIn.style";
+
 const LogIn = () => {
   const [user, setUser] = useState({ email: "", password: "" });
 
@@ -40,27 +47,39 @@ const LogIn = () => {
   };
 
   return (
-    <div>
+    <CustomCard>
       <h2>Log In</h2>
       <form onSubmit={handleSubmit}>
+        <CustomTextFiled
+          variant="standard"
+          label="Email"
+          name="email"
+          type="email"
+          onChange={handleChange}
+          required
+        />
+        <CustomTextFiled
+          variant="standard"
+          label="Password"
+          name="password"
+          type="password"
+          onChange={handleChange}
+          required
+        />
         <div>
-          <label>Email</label>
-          <input name="email" type="email" onChange={handleChange} required />
-        </div>
-        <div>
-          <label>Password</label>
-          <input
-            name="password"
-            type="password"
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <button>Log In</button>
+          <CustomButton variant="outlined">Log In</CustomButton>
         </div>
       </form>
-    </div>
+
+      <CustomBoxLogIn>
+        <i>
+          Please use the following if you want to test logging in. Username will
+          be "test".
+        </i>
+        <p>email: test@test.com</p>
+        <p>password: testtest098</p>
+      </CustomBoxLogIn>
+    </CustomCard>
   );
 };
 

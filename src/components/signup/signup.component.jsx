@@ -1,6 +1,17 @@
 import React, { useState } from "react";
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
-import { createUserProfileDocument } from "../../firebase/firebase.helper";
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  updateProfile,
+} from "firebase/auth";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../../firebase/firebase.util";
+
+import {
+  CustomCard,
+  CustomTextFiled,
+  CustomButton,
+} from "../signUp-logIn.style";
 
 const SignUp = () => {
   const [user, setUser] = useState({
@@ -23,12 +34,15 @@ const SignUp = () => {
 
     // handle with firebase
     try {
-      const { user } = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      await createUserProfileDocument(user, { displayName });
+      await createUserWithEmailAndPassword(auth, email, password);
+
+      await updateProfile(auth.currentUser, {
+        displayName: displayName,
+      });
+
+      const docRef = await addDoc(collection(db, "users"), {
+        displayName: user.displayName,
+      });
 
       setUser({
         displayName: "",
@@ -52,53 +66,53 @@ const SignUp = () => {
   };
 
   return (
-    <div>
-      <h2>Log In</h2>
+    <CustomCard>
+      <h2>Sign Up</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Display Name</label>
-          <input
+          <CustomTextFiled
+            label="Display Name"
+            variant="standard"
             onChange={handleChange}
             name="displayName"
             type="text"
-            label="Display Name"
+            value={user.displayName}
             required
           />
-        </div>
-        <div>
-          <label>Email</label>
-          <input
+          <CustomTextFiled
+            label="Email"
+            variant="standard"
             onChange={handleChange}
             name="email"
             type="email"
-            label="Email"
+            value={user.email}
             required
           />
-        </div>
-        <div>
-          <label>Password</label>
-          <input
+          <CustomTextFiled
+            label="Password"
+            variant="standard"
             onChange={handleChange}
             name="password"
             type="password"
-            label="Password"
+            value={user.password}
             required
           />
-        </div>
-        <div>
-          <label>Confirm Password</label>
-          <input
+          <CustomTextFiled
+            label="Confirm Password"
+            variant="standard"
             onChange={handleChange}
             name="confirmPassword"
             type="password"
-            label="Confirm Password"
+            value={user.confirmPassword}
             required
           />
         </div>
 
-        <button type="submit">Sign Up</button>
+        <CustomButton type="submit" variant="outlined">
+          Sign Up
+        </CustomButton>
       </form>
-    </div>
+    </CustomCard>
   );
 };
 

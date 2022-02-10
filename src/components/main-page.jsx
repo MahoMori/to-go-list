@@ -49,18 +49,10 @@ const MainPage = () => {
   };
 
   const [currentUser, setCurrentUser] = useState();
-  const getCurrentUser = onAuthStateChanged(auth, (user) => {
-    if (user) {
-      allUser.map((u) => {
-        if (u.email === user.email) {
-          setCurrentUser(u.displayName);
-        }
-      });
-    }
-  });
 
   useEffect(() => {
     getAllUser();
+    setCurrentUser(auth.currentUser.displayName);
   }, []);
 
   return (
