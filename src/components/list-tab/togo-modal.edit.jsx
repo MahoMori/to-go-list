@@ -3,15 +3,17 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
-import { makeStyles } from "@material-ui/core";
+// import { makeStyles } from "@material-ui/core";
 
-const useStyles = makeStyles(() => ({
-  buttonDiv: {
-    margin: "10px auto",
-    display: "flex",
-    justifyContent: "space-around",
-  },
-}));
+import { CustomTextField, CustomButtonBox } from "./togo-modal.style";
+
+// const useStyles = makeStyles(() => ({
+//   buttonDiv: {
+//     margin: "10px auto",
+//     display: "flex",
+//     justifyContent: "space-around",
+//   },
+// }));
 
 const boxStyle = {
   position: "absolute",
@@ -44,7 +46,6 @@ export default function TogoModalEdit({
   handleClose,
   handleEdit,
 }) {
-  const classes = useStyles();
   const { id, title, memo, refUrl1, refUrl2, refUrl3 } = data;
 
   const [editData, setEditData] = React.useState({
@@ -70,8 +71,7 @@ export default function TogoModalEdit({
         aria-describedby="modal-modal-description"
       >
         <Box sx={boxStyle}>
-          <TextField
-            sx={textfieldStyle}
+          <CustomTextField
             color="secondary"
             fullWidth
             id="standard-basic"
@@ -82,8 +82,7 @@ export default function TogoModalEdit({
             onChange={handleChange}
             defaultValue={title}
           />
-          <TextField
-            sx={textfieldStyle}
+          <CustomTextField
             color="secondary"
             fullWidth
             id="standard-multiline-static"
@@ -95,8 +94,7 @@ export default function TogoModalEdit({
             onChange={handleChange}
             defaultValue={memo}
           />
-          <TextField
-            sx={textfieldStyle}
+          <CustomTextField
             color="secondary"
             fullWidth
             id="standard-basic"
@@ -106,8 +104,7 @@ export default function TogoModalEdit({
             onChange={handleChange}
             defaultValue={refUrl1}
           />
-          <TextField
-            sx={textfieldStyle}
+          <CustomTextField
             color="secondary"
             fullWidth
             id="standard-basic"
@@ -117,8 +114,7 @@ export default function TogoModalEdit({
             onChange={handleChange}
             defaultValue={refUrl2}
           />
-          <TextField
-            sx={textfieldStyle}
+          <CustomTextField
             color="secondary"
             fullWidth
             id="standard-basic"
@@ -129,7 +125,7 @@ export default function TogoModalEdit({
             defaultValue={refUrl3}
           />
 
-          <div className={classes.buttonDiv}>
+          <CustomButtonBox>
             <Button
               variant="outlined"
               color="success"
@@ -143,7 +139,7 @@ export default function TogoModalEdit({
             <Button variant="outlined" color="error" onClick={handleClose}>
               Cancel
             </Button>
-          </div>
+          </CustomButtonBox>
         </Box>
       </Modal>
     </div>

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { collection, query, onSnapshot } from "firebase/firestore";
-import { onAuthStateChanged } from "firebase/auth";
 import { db, auth } from "../firebase/firebase.util";
 
 import HeaderContainer from "./header/header.container";
@@ -16,29 +15,11 @@ const MainPage = () => {
       (snapshot) => {
         snapshot.docChanges().forEach((change) => {
           let changedData = change.doc.data();
-          // const changedDataId = change.doc.id;
-          // changedData.id = changedDataId;
 
           if (change.type === "added") {
             setAllUser((prevData) => [changedData, ...prevData]);
             console.log("Added: ", changedData);
           }
-
-          // if (change.type === "modified") {
-          //   setAllUser((prev) => {
-          //     return prev.map((data) =>
-          //       data.id === changedDataId ? { ...changedData } : data
-          //     );
-          //   });
-          //   console.log("Modified: ", changedData);
-          // }
-
-          // if (change.type === "removed") {
-          //   setAllUser((prev) => {
-          //     return prev.filter((data) => data.id !== changedDataId);
-          //   });
-          //   console.log("Removed: ", changedData);
-          // }
         });
       },
       (error) => {

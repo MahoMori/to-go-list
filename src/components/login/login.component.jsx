@@ -67,7 +67,9 @@ const LogIn = () => {
           required
         />
         <div>
-          <CustomButton variant="outlined">Log In</CustomButton>
+          <CustomButton type="submit" variant="outlined">
+            Log In
+          </CustomButton>
         </div>
       </form>
 

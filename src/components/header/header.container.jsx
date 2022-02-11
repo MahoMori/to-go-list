@@ -7,27 +7,9 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-
 import Grid from "@mui/material/Grid";
 
-import { makeStyles } from "@material-ui/core";
-
-const useStyles = makeStyles(() => ({
-  headerLeft: {},
-  headerRight: {
-    float: "right",
-    display: "flex",
-    justifyContent: "space-around",
-  },
-  currenUser: {
-    textTransform: "uppercase",
-    fontWeight: "bold",
-  },
-}));
-
 const HeaderContainer = ({ currentUser }) => {
-  const classes = useStyles();
-
   const handleSignOut = async () => {
     try {
       await signOut(auth);
@@ -49,9 +31,16 @@ const HeaderContainer = ({ currentUser }) => {
               </Typography>
             </Grid>
             <Grid item sm={6} md={2} sx={{ width: "50%", marginTop: "7px" }}>
-              <Typography variant="summary" component="div" sx={{}}>
+              <Typography variant="summary" component="div">
                 Signed in as:{" "}
-                <span className={classes.currenUser}>{currentUser}</span>
+                <span
+                  style={{
+                    textTransform: "uppercase",
+                    fontWeight: "bold",
+                  }}
+                >
+                  {currentUser}
+                </span>
               </Typography>
             </Grid>
             <Grid item sm={6} md={2} sx={{ width: "50%" }}>
