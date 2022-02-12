@@ -55,9 +55,6 @@ export default function ListTabPanel({ nameOfCreator }) {
           textColor="secondary"
           indicatorColor="secondary"
         >
-          {/* <Tab label={labelTogo} />
-          <Tab label={labelTodo} /> */}
-
           <Tab label="TO GO" />
           <Tab label="TO DO" />
         </Tabs>

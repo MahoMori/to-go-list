@@ -2,11 +2,8 @@ import React, { useState } from "react";
 
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
-// import AccordionDetails from "@mui/material/AccordionDetails";
 
 import Checkbox from "@mui/material/Checkbox";
-// import ModeEditIcon from "@mui/icons-material/ModeEdit";
-// import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Link from "@mui/material/Link";
@@ -19,8 +16,6 @@ import LooksOneIcon from "@mui/icons-material/LooksOne";
 import LooksTwoIcon from "@mui/icons-material/LooksTwo";
 import Looks3Icon from "@mui/icons-material/Looks3";
 
-// import useMediaQuery from "@mui/material/useMediaQuery";
-
 import {
   CustomContainerBox,
   CustomAccordionDetails,
@@ -30,12 +25,14 @@ import {
 } from "./togo.component.style";
 
 import TogoModalEdit from "./togo-modal.edit";
+// import ListModal from "./list-modal";
 
 const TogoComponent = ({
   label,
   data,
   handleDoneUndone,
   handleDelete,
+  handleChange,
   handleEdit,
 }) => {
   const { id, title, memo, refUrl1, refUrl2, refUrl3, isDone } = data;
@@ -43,9 +40,6 @@ const TogoComponent = ({
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
-  // const sm = useMediaQuery("(max-width:600px)");
-  // const md = useMediaQuery("(max-width:900px)");
 
   return (
     <CustomContainerBox key={id}>
@@ -74,7 +68,7 @@ const TogoComponent = ({
                   href={refUrl1}
                   target="_blank"
                 >
-                  {label === "TO GO" ? (
+                  {label === "togo" ? (
                     <>
                       <LocationOnIcon sx={{ mr: 0.5 }} fontSize="inherit" />
                       Map
@@ -95,7 +89,7 @@ const TogoComponent = ({
                   href={refUrl2}
                   target="_blank"
                 >
-                  {label === "TO GO" ? (
+                  {label === "togo" ? (
                     <>
                       <WebIcon sx={{ mr: 0.5 }} fontSize="inherit" />
                       Website
@@ -116,7 +110,7 @@ const TogoComponent = ({
                   href={refUrl3}
                   target="_blank"
                 >
-                  {label === "TO GO" ? (
+                  {label === "togo" ? (
                     <>
                       <LanguageIcon sx={{ mr: 0.5 }} fontSize="inherit" />
                       Other
@@ -140,20 +134,9 @@ const TogoComponent = ({
           onChange={() => handleDoneUndone(id, isDone)}
         />
 
-        <CustomModeEditIcon
-          // className={classes.iconEdit}
-          onClick={handleOpen}
-          // sx={
-          //   sm
-          //     ? { marginBottom: "3px" }
-          //     : md
-          //     ? { margin: "0 8px" }
-          //     : { margin: "0 20px" }
-          // }
-        />
+        <CustomModeEditIcon onClick={handleOpen} />
 
         <CustomDeleteForeverIcon
-          // className={classes.iconDelete}
           onClick={() => {
             if (
               window.confirm("Are you sure you want to delete this?") === true
@@ -171,7 +154,16 @@ const TogoComponent = ({
         handleClose={handleClose}
         handleEdit={handleEdit}
       />
-      {/* </li> */}
+      {/* <ListModal
+        label={label}
+        data={data}
+        open={open}
+        handleChange={handleChange}
+        handleEdit={handleEdit}
+        handleClose={handleClose}
+      >
+        Edit
+      </ListModal> */}
     </CustomContainerBox>
   );
 };

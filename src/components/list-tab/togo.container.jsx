@@ -21,7 +21,9 @@ import Button from "@mui/material/Button";
 import TogoModalAdd from "./togo-modal.add";
 import TogoComponent from "./togo.component";
 
-const Togo = ({ label, nameOfCreator }) => {
+// import ListModal from "./list-modal";
+
+const Togo = React.memo(({ label, nameOfCreator }) => {
   // const togoTodo = useSelector((state) => state.togoTodo);
   // const dispatch = useDispatch();
 
@@ -119,6 +121,16 @@ const Togo = ({ label, nameOfCreator }) => {
           >
             ADD NEW
           </Button>
+          {/* <ListModal
+            label={label}
+            data={data}
+            open={open}
+            handleChange={handleChange}
+            handleSubmit={handleSubmit}
+            handleClose={handleClose}
+          >
+            Add
+          </ListModal> */}
           <TogoModalAdd
             label={label}
             open={open}
@@ -140,12 +152,13 @@ const Togo = ({ label, nameOfCreator }) => {
                 data={data}
                 handleDoneUndone={handleDoneUndone}
                 handleDelete={handleDelete}
+                // handleChange={handleChange}
                 handleEdit={handleEdit}
               />
             ))}
       </>
     </div>
   );
-};
+});
 
 export default Togo;
