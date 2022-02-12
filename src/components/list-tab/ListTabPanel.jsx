@@ -40,8 +40,11 @@ export default function ListTabPanel({ nameOfCreator }) {
     setValue(newValue);
   };
 
-  const labelTogo = "TO GO";
-  const labelTodo = "TO DO";
+  // const labelTogo = "TO GO";
+  // const labelTodo = "TO DO";
+
+  const labelTogo = "togo";
+  const labelTodo = "todo";
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -52,8 +55,11 @@ export default function ListTabPanel({ nameOfCreator }) {
           textColor="secondary"
           indicatorColor="secondary"
         >
-          <Tab label={labelTogo} />
-          <Tab label={labelTodo} />
+          {/* <Tab label={labelTogo} />
+          <Tab label={labelTodo} /> */}
+
+          <Tab label="TO GO" />
+          <Tab label="TO DO" />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
