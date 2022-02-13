@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { collection, query, onSnapshot } from "firebase/firestore";
 import { db, auth } from "../firebase/firebase.util";
 
@@ -8,7 +8,7 @@ import NameTabPanel from "./name-tab/NameTabPanel";
 const MainPage = () => {
   const [allUser, setAllUser] = useState([]);
 
-  const getAllUser = () => {
+  const getAllUser = useCallback(() => {
     const q = query(collection(db, "users"));
     const unsubscribe = onSnapshot(
       q,
@@ -27,7 +27,7 @@ const MainPage = () => {
       }
     );
     return unsubscribe;
-  };
+  }, []);
 
   const [currentUser, setCurrentUser] = useState();
 
